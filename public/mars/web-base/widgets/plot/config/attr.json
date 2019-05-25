@@ -1,0 +1,423 @@
+{
+    "label": {
+        "name": "文字",
+        "style": [
+            { "name": "text", "label": "内容", "type": "textarea", "defval": "文字" },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 1 },
+
+            { "name": "color", "label": "颜色", "type": "color", "defval": "#0081c2" },
+            {
+                "name": "font_family",
+                "label": "字体",
+                "type": "combobox",
+                "defval": "黑体",
+                "data": [
+                    { "text": "黑体", "value": "黑体" },
+                    { "text": "宋体", "value": "宋体" },
+                    { "text": "微软雅黑", "value": "微软雅黑" }
+                ]
+            },
+            { "name": "font_size", "label": "字体大小", "type": "number", "defval": 30 },
+            {
+                "name": "font_style",
+                "label": "是否斜体",
+                "type": "combobox",
+                "defval": "normal",
+                "data": [
+                    { "text": "是", "value": "italic" },
+                    { "text": "否", "value": "normal" }
+                ]
+            },
+            {
+                "name": "font_weight",
+                "label": "是否加粗",
+                "type": "combobox",
+                "defval": "normal",
+                "data": [
+                    { "text": "是", "value": "bold" },
+                    { "text": "否", "value": "normal" }
+                ]
+            },
+            { "name": "border", "label": "是否衬色", "type": "radio", "defval": true, "impact": [ "border_color", "border_width", "border_style" ] },
+            { "name": "border_color", "label": "衬色颜色", "type": "color", "defval": "#ffffff" },
+            { "name": "border_width", "label": "衬色宽度", "type": "number", "defval": 2 },
+
+            { "name": "background", "label": "是否背景", "type": "radio", "defval": false, "impact": [ "background_color" ] },
+            { "name": "background_color", "label": "背景颜色", "type": "color", "defval": "#ccc" },
+
+            { "name": "scaleByDistance", "label": "是否按视距缩放", "type": "radio", "defval": false, "impact": [ "scaleByDistance_far", "scaleByDistance_farValue", "scaleByDistance_near", "scaleByDistance_nearValue" ] },
+            { "name": "scaleByDistance_far", "label": "上限", "type": "number", "defval": 1000000 },
+            { "name": "scaleByDistance_farValue", "label": "比例值", "type": "number", "defval": 0.1 },
+            { "name": "scaleByDistance_near", "label": "下限", "type": "number", "defval": 1000 },
+            { "name": "scaleByDistance_nearValue", "label": "比例值", "type": "number", "defval": 1 },
+
+            { "name": "distanceDisplayCondition", "label": "是否按视距显示", "type": "radio", "defval": false, "impact": [ "distanceDisplayCondition_far", "distanceDisplayCondition_near" ] },
+            { "name": "distanceDisplayCondition_far", "label": "最大距离", "type": "number", "defval": 10000 },
+            { "name": "distanceDisplayCondition_near", "label": "最小距离", "type": "number", "defval": 0 }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+
+    "point": {
+        "name": "像素点",
+        "style": [
+            { "name": "pixelSize", "label": "像素大小", "type": "number", "defval": 10 },
+            { "name": "color", "label": "颜色", "type": "color", "defval": "#3388ff" },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 1.0 },
+            { "name": "outline", "label": "是否边框", "type": "radio", "defval": true, "impact": [ "outlineColor", "outlineOpacity", "outlineWidth" ] },
+            { "name": "outlineColor", "label": "边框颜色", "type": "color", "defval": "#ffffff" },
+            { "name": "outlineOpacity", "label": "边框透明度", "type": "slider", "defval": 1 },
+            { "name": "outlineWidth", "label": "边框宽度", "type": "number", "defval": 2 },
+
+            { "name": "scaleByDistance", "label": "是否按视距缩放", "type": "radio", "defval": false, "impact": [ "scaleByDistance_far", "scaleByDistance_farValue", "scaleByDistance_near", "scaleByDistance_nearValue" ] },
+            { "name": "scaleByDistance_far", "label": "上限", "type": "number", "defval": 1000000 },
+            { "name": "scaleByDistance_farValue", "label": "比例值", "type": "number", "defval": 0.1 },
+            { "name": "scaleByDistance_near", "label": "下限", "type": "number", "defval": 1000 },
+            { "name": "scaleByDistance_nearValue", "label": "比例值", "type": "number", "defval": 1 },
+
+            { "name": "distanceDisplayCondition", "label": "是否按视距显示", "type": "radio", "defval": false, "impact": [ "distanceDisplayCondition_far", "distanceDisplayCondition_near" ] },
+            { "name": "distanceDisplayCondition_far", "label": "最大距离", "type": "number", "defval": 10000 },
+            { "name": "distanceDisplayCondition_near", "label": "最小距离", "type": "number", "defval": 0 }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+
+    "imagepoint": {
+        "name": "图标点标记",
+        "style": [
+            { "name": "image", "label": "图标", "type": "label", "defval": "" },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 1 },
+            { "name": "scale", "label": "大小比例", "type": "number", "defval": 1.0 ,"min":0,"max":1000},
+            { "name": "rotation", "label": "旋转角度", "type": "number", "defval": 0 },
+
+            { "name": "scaleByDistance", "label": "是否按视距缩放", "type": "radio", "defval": false, "impact": [ "scaleByDistance_far", "scaleByDistance_farValue", "scaleByDistance_near", "scaleByDistance_nearValue" ] },
+            { "name": "scaleByDistance_far", "label": "上限", "type": "number", "defval": 1000000 },
+            { "name": "scaleByDistance_farValue", "label": "比例值", "type": "number", "defval": 0.1 },
+            { "name": "scaleByDistance_near", "label": "下限", "type": "number", "defval": 1000 },
+            { "name": "scaleByDistance_nearValue", "label": "比例值", "type": "number", "defval": 1 },
+
+            { "name": "distanceDisplayCondition", "label": "是否按视距显示", "type": "radio", "defval": false, "impact": [ "distanceDisplayCondition_far", "distanceDisplayCondition_near" ] },
+            { "name": "distanceDisplayCondition_far", "label": "最大距离", "type": "number", "defval": 10000 },
+            { "name": "distanceDisplayCondition_near", "label": "最小距离", "type": "number", "defval": 0 }
+
+
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+
+    "model": {
+        "name": "模型",
+        "style": [
+            { "name": "modelUrl", "label": "模型", "type": "hidden", "defval": "" },
+            { "name": "scale", "label": "大小", "type": "number", "defval": 1.0 },
+            { "name": "heading", "label": "方向角", "type": "number", "defval": 0.0 },
+            { "name": "pitch", "label": "倾角", "type": "number", "defval": 0.0 },
+            { "name": "roll", "label": "滚动角", "type": "number", "defval": 0.0 },
+            { "name": "fill", "label": "是否填充", "type": "radio", "defval": false, "impact": [ "color" ] },
+            { "name": "color", "label": "颜色", "type": "color", "defval": "#3388ff" },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 1.0 },
+            { "name": "silhouette", "label": "是否轮廓", "type": "radio", "defval": false, "impact": [ "silhouetteColor", "silhouetteSize", "silhouetteAlpha" ] },
+            { "name": "silhouetteColor", "label": "轮廓颜色", "type": "color", "defval": "#ffffff" },
+            { "name": "silhouetteSize", "label": "轮廓宽度", "type": "number", "defval": 2.0 },
+            { "name": "silhouetteAlpha", "label": "轮廓透明度", "type": "slider", "defval": 0.8 }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+
+
+    "polyline": {
+        "name": "线",
+        "position": {
+            "height": true,
+            "minCount": 2
+        },
+        "style": [
+            { "name": "color", "label": "颜色", "type": "color", "defval": "#3388ff","min":0,"max":1000 },
+            { "name": "width", "label": "线宽", "type": "number", "defval": 4 ,"min":0,"max":100},
+            {
+                "name": "lineType",
+                "label": "线型",
+                "type": "combobox",
+                "defval": "solid",
+                "data": [
+                    { "text": "实线", "value": "solid" },
+                    { "text": "虚线", "value": "dash" }
+                ]
+            },
+            { "name": "clampToGround", "label": "是否贴地", "type": "radio", "defval": false },
+
+
+            { "name": "outline", "label": "是否衬色", "type": "radio", "defval": false, "impact": [ "outlineColor", "outlineWidth" ] },
+            { "name": "outlineColor", "label": "衬色颜色", "type": "color", "defval": "#ffffff" },
+            { "name": "outlineWidth", "label": "衬色宽度", "type": "number", "defval": 2 },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 1 }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+    "polylineVolume": {
+        "name": "管道线",
+        "position": {
+            "height": true,
+            "minCount": 2
+        },
+        "style": [
+            { "name": "color", "label": "颜色", "type": "color", "defval": "#00FF00" },
+            { "name": "radius", "label": "半径", "type": "number", "defval": 10 },
+            {
+                "name": "shape",
+                "label": "形状",
+                "type": "combobox",
+                "defval": "pipeline",
+                "data": [
+                    { "text": "空心管", "value": "pipeline" },
+                    { "text": "实心管", "value": "circle" },
+                    { "text": "星状管", "value": "star" }
+                ]
+            },
+            { "name": "outline", "label": "是否衬色", "type": "radio", "defval": false, "impact": [ "outlineColor" ] },
+            { "name": "outlineColor", "label": "衬色颜色", "type": "color", "defval": "#ffffff" },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 1 }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+
+    "polygon": {
+        "name": "贴地面",
+        "position": {
+            "height": false,
+            "minCount": 3
+        },
+        "style": [
+            { "name": "color", "label": "颜色", "type": "color", "defval": "#3388ff" },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 0.6 },
+         
+
+            { "name": "perPositionHeight", "label": "是否高度", "type": "hidden", "defval": false }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+    "polygon2": {
+        "name": "面",
+        "position": {
+            "height": true,
+            "minCount": 3
+        },
+        "style": [
+            { "name": "color", "label": "颜色", "type": "color", "defval": "#3388ff" },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 0.6 },
+            { "name": "outline", "label": "是否边框", "type": "radio", "defval": true, "impact": [ "outlineColor", "outlineOpacity" ] },
+            { "name": "outlineColor", "label": "边框颜色", "type": "color", "defval": "#ffffff" },
+            { "name": "outlineOpacity", "label": "边框透明度", "type": "slider", "defval": 1 },
+
+            { "name": "perPositionHeight", "label": "是否高度", "type": "hidden", "defval": true }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+    "extrudedPolygon": {
+        "name": "拉伸面",
+        "position": {
+            "height": true,
+            "minCount": 3
+        },
+        "style": [
+            { "name": "color", "label": "颜色", "type": "color", "defval": "#00FF00" },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 0.6 },
+            { "name": "outline", "label": "是否边框", "type": "radio", "defval": true, "impact": [ "outlineColor", "outlineOpacity" ] },
+            { "name": "outlineColor", "label": "边框颜色", "type": "color", "defval": "#ffffff" },
+            { "name": "outlineOpacity", "label": "边框透明度", "type": "slider", "defval": 1 },
+            { "name": "extrudedHeight", "label": "高度", "type": "number", "defval": 100 },
+
+            { "name": "perPositionHeight", "label": "是否高度", "type": "hidden", "defval": true }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+
+
+    "rectangle": {
+        "name": "矩形",
+        "position": {
+            "height": false,
+            "minCount": 2,
+            "maxCount": 2
+        },
+        "style": [
+            { "name": "color", "label": "颜色", "type": "color", "defval": "#3388ff" },
+            { "name": "rotation", "label": "旋转", "type": "number", "defval": 0.0 },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 0.6 }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+    "rectangleImg": {
+        "name": "图片",
+        "position": {
+            "height": false,
+            "minCount": 2,
+            "maxCount": 2
+        },
+        "style": [
+            { "name": "image", "label": "图片", "type": "label", "defval": "" },
+            { "name": "rotation", "label": "旋转", "type": "number", "defval": 0.0 },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 0.6 }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+    "extrudedRectangle": {
+        "name": "拉伸矩形",
+        "position": {
+            "height": true,
+            "minCount": 2,
+            "maxCount": 2
+        },
+        "style": [
+            { "name": "color", "label": "颜色", "type": "color", "defval": "#00FF00" },
+            { "name": "outline", "label": "是否边框", "type": "radio", "defval": true, "impact": [ "outlineColor" ] },
+            { "name": "outlineColor", "label": "边框颜色", "type": "color", "defval": "#ffffff" },
+            { "name": "rotation", "label": "旋转", "type": "number", "defval": 0.0 },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 0.6 },
+            { "name": "extrudedHeight", "label": "高度", "type": "number", "defval": 40 },
+            { "name": "height", "label": "高程", "type": "number", "defval": 0 }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+
+
+    "ellipse": {
+        "name": "椭圆",
+        "position": {
+            "height": false
+        },
+        "style": [
+            { "name": "semiMinorAxis", "label": "短半径", "type": "number", "defval": 100 },
+            { "name": "semiMajorAxis", "label": "长半径", "type": "number", "defval": 100 },
+            { "name": "height", "label": "高程", "type": "number", "defval": 0 },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 0.6 },
+            { "name": "fill", "label": "是否填充", "type": "radio", "defval": true, "impact": [ "color" ] },
+            { "name": "color", "label": "填充颜色", "type": "color", "defval": "#3388ff" },
+
+            { "name": "outline", "label": "是否边框", "type": "radio", "defval": true, "impact": [ "outlineColor" ] },
+            { "name": "outlineColor", "label": "边框颜色", "type": "color", "defval": "#ffffff" },
+
+            { "name": "rotation", "label": "旋转角度", "type": "number", "defval": 0 }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+    "extrudedEellipse": {
+        "name": "圆柱体",
+        "position": {
+            "height": false
+        },
+        "style": [
+            { "name": "semiMinorAxis", "label": "短半径", "type": "number", "defval": 100 },
+            { "name": "semiMajorAxis", "label": "长半径", "type": "number", "defval": 100 },
+
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 0.6 },
+            { "name": "fill", "label": "是否填充", "type": "radio", "defval": true, "impact": [ "color" ] },
+            { "name": "color", "label": "填充颜色", "type": "color", "defval": "#00FF00" },
+
+            { "name": "outline", "label": "是否边框", "type": "radio", "defval": true, "impact": [ "outlineColor" ] },
+            { "name": "outlineColor", "label": "边框颜色", "type": "color", "defval": "#ffffff" },
+
+            { "name": "extrudedHeight", "label": "顶部高程", "type": "number", "defval": 100 },
+            { "name": "height", "label": "底部高程", "type": "number", "defval": 0 },
+            { "name": "rotation", "label": "旋转角度", "type": "number", "defval": 0 }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+
+
+    "ellipsoid": {
+        "name": "球体",
+        "style": [
+            { "name": "extentRadii", "label": "长半径", "type": "number", "defval": 100 },
+            { "name": "widthRadii", "label": "宽半径", "type": "number", "defval": 100 },
+            { "name": "heightRadii", "label": "高半径", "type": "number", "defval": 100 },
+            { "name": "color", "label": "颜色", "type": "color", "defval": "#00FF00" },
+            { "name": "outline", "label": "是否边框", "type": "radio", "defval": true, "impact": [ "outlineColor" ] },
+            { "name": "outlineColor", "label": "边框颜色", "type": "color", "defval": "#ffffff" },
+            { "name": "fill", "label": "是否填充", "type": "hidden", "defval": true },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 0.6 }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    },
+    "wall": {
+        "name": "墙体",
+        "position": {
+            "height": true,
+            "minCount": 2
+        },
+        "style": [
+            { "name": "color", "label": "颜色", "type": "color", "defval": "#00FF00" },
+            { "name": "outline", "label": "是否边框", "type": "radio", "defval": true, "impact": [ "outlineColor" ] },
+            { "name": "outlineColor", "label": "边框颜色", "type": "color", "defval": "#ffffff" },
+            { "name": "opacity", "label": "透明度", "type": "slider", "defval": 0.6 },
+            { "name": "extrudedHeight", "label": "墙高", "type": "number", "defval": 40 }
+        ],
+        "attr": [
+            { "name": "id", "label": "主键", "type": "hidden", "defval": "" },
+            { "name": "name", "label": "名称", "type": "text", "defval": "" },
+            { "name": "remark", "label": "备注", "type": "textarea", "defval": "" }
+        ]
+    }
+
+
+}

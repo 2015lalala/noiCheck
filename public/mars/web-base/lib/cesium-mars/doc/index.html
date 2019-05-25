@@ -1,0 +1,2527 @@
+﻿<!-- 2017-12-6 12:34:42 | 修改 木遥（QQ：346819890） -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0" />
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="x5-fullscreen" content="true">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+
+    <meta name="keywords" content="火星科技|合肥火星|合肥火星科技|合肥火星科技有限公司|leaflet|leaflet框架|leaflet开发|cesium|cesium开发|cesium框架|gis|marsgis|地图离线|地图开发|地图框架|地图外包" />
+    <meta name="description" content="火星科技 合肥火星 合肥火星科技 合肥火星科技有限公司 leaflet leaflet框架 leaflet开发 cesium cesium开发 cesium框架 gis marsgis 地图离线 地图开发 地图框架 地图外包 框架 开发 外包  地图离线 二维地图 三维地图 全景漫游 地理信息系统 云GIS 三维GIS GIS平台 WebGIS" />
+     
+    <title>API 文档 - MarsGIS for Cesium 框架</title>
+
+
+
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <script type="text/javascript" src="../../include-lib.js?time=20180810" include="jquery,highlight" libpath="../../"></script>
+
+</head>
+
+<body class="api-page">
+
+    <div class="container">
+
+        <h2>MarsGIS for Cesium框架 API文档 </h2>
+
+        <p>在阅读API之前，您至少应该了解Cesium和MarsGIS for Cesium框架.</p>
+
+        <hr />
+
+        <div id="toc" class="clearfix">
+            <div class="toc-col map-col">
+                <h4>Map的创建</h4>
+                <ul>
+                    <li>
+                        <a href="#map-example">使用示例</a>
+                    </li>
+                    <li>
+                        <a href="#map-factory">创建地图</a>
+                    </li>
+                    <li>
+                        <a href="#map-option">Options参数选项</a>
+                    </li>
+                    <li>
+                        <a href="#mars3d-map">viewer扩展方法</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="toc-col">
+                <h4>静态类</h4>
+                <ul>
+                    <li><a href="#mars3d-latlng">latlng坐标处理类</a></li>
+                    <li><a href="#mars3d-layer">layer图层处理类</a></li>
+                    <li><a href="#mars3d-popup">popup鼠标单击弹窗</a></li>
+                    <li><a href="#mars3d-tooltip">tooltip鼠标提示信息</a></li>
+                    <li><a href="#pointconvert">pointconvert 坐标转换</a></li>
+                    <li><a href="#mars3d-util">util类</a></li>
+                </ul>
+            </div>
+            <div class="toc-col">
+                <h4>标绘测量类</h4>
+                <ul>
+                    <li><a href="#mars3d-drawingutils">util常用方法</a></li>
+                    <li><a href="#draw">Draw标绘类</a></li>
+                    <li><a href="#measure">Measure量算类</a></li>
+                </ul>
+                <h4>图层控制类</h4>
+                <ul>
+                    <li><a href="#BaseLayer">BaseLayer图层控制基类</a></li>
+                    <li><a href="#TileLayer">TileLayer瓦片底图</a></li>
+                    <li><a href="#Tiles3dLayer">Tiles3dLayer三维模型</a></li>
+                </ul>
+            </div>
+            <div class="toc-col last-col">
+                <h4>widget模块化</h4>
+                <ul>
+                    <li>
+                        <a href="#BaseWidget">BaseWidget基类</a>
+                    </li>
+                    <li>
+                        <a href="#widgetmanager">widget管理类</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+        <!--创建Map-->
+        <h2 id='map'>创建Map</h2>
+        <p>框架的核心静态方法，它用来在页面中创建地图.</p>
+        <section>
+            <h3 id='map-example'>使用示例</h3>
+            <section>
+                <pre class="highlight"><code class="js">mars3d.createMap({
+    id: 'cesiumContainer',
+    url: configfile + "?time=20180810",
+    success: function (viewer, gisdata, jsondata) {//地图成功加载完成后执行
+        
+    }
+});<a href="../cesium-example/editor.html#13_for_config" target="_blank" style="font-size: 10px;float:right">查看运行效果&nbsp;&raquo;</a> </code></pre>
+
+            </section>
+        </section>
+        <section>
+            <h3 id='map-factory'>创建地图</h3>
+            <section>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>创建示例</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id='map-l-map'>
+                            <td><code><b>mars3d.createMap</b>(<nobr>&lt;MarsMap options&gt;</nobr> <i>options</i>)</nobr></code></td>
+                            <td>
+                                将地图部署在给定ID的DIV容器中，并设置地图的选项.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </section>
+
+        </section>
+        <section>
+            <h3 id='map-option'>Options参数选项</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Option参数</th>
+                            <th>参数类型</th>
+                            <th>默认值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id='marsmap-id'>
+                            <td><code><b>id</b></code></td>
+                            <td><code>String</code>
+                            <td><code>必须传入</code></td>
+                            <td>地图Div容器的id。</td>
+                        </tr>
+                        <tr id='marsmap-url'>
+                            <td><code><b>url</b></code></td>
+                            <td><code>String</code>
+                            <td><code>url或data参数必须有一个有值</code></td>
+                            <td>框架规定规范的地图配置信息的Json文件url地址</td>
+                        </tr>
+                        <tr id='marsmap-data'>
+                            <td><code><b>data</b></code></td>
+                            <td><code>Object</code>
+                            <td><code>url或data参数必须有一个有值</code></td>
+                            <td>框架规定规范的地图配置信息的Json文件Object对象</td>
+                        </tr>
+                        <tr id='marsmap-success'>
+                            <td><code><b>success</b></code></td>
+                            <td><code>function</code>
+                            <td><code>null</code></td>
+                            <td>
+                                <p>地图创建完成后的回调函数. </p>
+                                <pre><code>success: function (viewer, gisdata, jsondata) {
+    //viewer    为Cesium规范的viewer地图对象
+    //gisdata   为地图创建完成后的一些有用的对象集合，如控件、图层、配置等信息
+    //jsondata  为url或data参数传入后读取到的json数据对象
+}
+</code></pre>
+                            </td>
+                        </tr>
+                        <tr id='marsmap-serverURL'>
+                            <td><code><b>serverURL</b></code></td>
+                            <td><code>String</code>
+                            <td></td>
+                            <td>会替换图层中配置的url地址中的<code>$serverURL$</code>参数为该值，用于统一配置url中GIS服务器的ip和端口，方便部署。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <div class='accordion'>
+                <label><span class='expander'>▶</span>继承的Options参数，来自<a href='../forcesium/Build/Documentation/Viewer.html'>Cesium.Viewer</a></label>
+                <div class='accordion-overflow'>
+                    <div class='accordion-content'>
+                        <section>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Option参数</th>
+                                        <th>参数类型</th>
+                                        <th>默认值</th>
+                                        <th>说明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id='marsmap-ex'>
+                                        <td><code><b>*</b></code></td>
+                                        <td><code>*</code>
+                                        <td><code>*</code></td>
+                                        <td>
+                                            支持所有Cesium.Viewer的参数，具体请参阅
+                                            <a href='../forcesium/Build/Documentation/Viewer.html'>Cesium API</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <h2 id='mars3d-map'>viewer扩展方法</h2>
+        <p>
+            实例化完成viewer后，会在viewer有扩展的一个静态类 viewer.mars.*, 该类是静态类，包含坐标转换、popup、tooltip、定位等方法或对象。
+        </p>
+        <section>
+            <h3 id='mars3dmap-method'>方法</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法名</th>
+                            <th>返回值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code><b>getLayer</b>(<nobr>String</nobr> <i>key</i>,  <nobr>String</nobr> <i>keyname?</i>)</code></td>
+                            <td><code><a href='#BaseLayer'>BaseLayer</a></code></td>
+                            <td>
+                                <p>根据指定字段值（默认名称name）获取指定图层，keyname可以定义id等，为配置信息的字段名，默认是name</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>centerAt</b>(<nobr>Object</nobr> <i>centeropt</i>,<nobr>Number</nobr> <i>duration?</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>地球定位至指定区域，duration为播放动画时长（秒），默认3秒</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>openFlyAnimation</b>(<nobr>Function</nobr> <i>endfun</i>,<nobr>Object</nobr> <i>centeropt?</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>开场动画，动画播放地球飞行定位指指定区域（默认为config.josn中配置的视域）</p>
+                                <pre><code>viewer.mars.openFlyAnimation(function () {
+    //动画播放完成后回调       
+}); 
+</code></pre>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>hasTerrain</b>()</code></td>
+                            <td><code>Boolean</code></td>
+                            <td>
+                                <p>是否有地形数据</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>updateTerrainProvider</b>(<nobr>Boolean</nobr> <i>isStkTerrain</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>更新地形，参数传入是否显示地形</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>getCrs</b>()</code></td>
+                            <td><code>String</code></td>
+                            <td>
+                                <p>获取当前地图坐标系，值为gcj时表示是国测局偏移坐标</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>point2map</b>({x:经度,y:纬度})</code></td>
+                            <td><code>{x:经度,y:纬度}</code></td>
+                            <td>
+                                <p>在不同坐标系情况下，转换“目标坐标值”至“地图坐标系”一致的坐标</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>point2wgs</b>({x:经度,y:纬度})</code></td>
+                            <td><code>{x:经度,y:纬度}</code></td>
+                            <td>
+                                <p>在不同坐标系情况下 ，获取地图上的坐标后，转为wgs标准坐标系坐标值</p>
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </section>
+        </section>
+        <section>
+            <h3 id='mars3dmap-method'>类</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法名</th>
+                            <th>返回值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code><b>popup</b></code></td>
+                            <td><code><a href='mars3d-popup'>popup</a></code></td>
+                            <td>
+                                <p>鼠标单击信息框处理类。</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>tooltip</b></code></td>
+                            <td><code><code><a href='mars3d-tooltip'>tooltip</a></code> </code></td>
+                            <td>
+                                <p>鼠标悬浮提示信息框处理类。</p>
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+
+
+        <h2 id='mars3d-latlng'>latlng坐标处理类</h2>
+        <p>
+            mars3d.latlng 该类是静态类。坐标转换处理类。
+        </p>
+
+
+
+        <section>
+
+            <h3 id='mars3dmap-method'>方法</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法名</th>
+                            <th>返回值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><code><b>getCurrentMousePosition</b>(<nobr><a href='../forcesium/Build/Documentation/Scene.html?classFilter=Scene'>Scene</a></nobr> <i>scene</i>, <nobr><a href='../forcesium/Build/Documentation/Cartesian2.html?classFilter=Cartesian2'>Cartesian2</a></nobr> <i>position</i>)</code></td>
+                            <td><code><nobr><a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian3'>Cartesian3</a></nobr></code></td>
+                            <td>
+                                <p>获取鼠标当前位置，返回Cartesian3类型的笛卡尔坐标（可拾取模型，地形高度）</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>getCenter</b>(<nobr><a href='../forcesium/Build/Documentation/Viewer.html'>Viewer</a></nobr> <i>viewer</i>, <nobr>Boolean</nobr> <i>isToWgs？</i>)</code></td>
+                            <td><code><nobr>Object</nobr></code></td>
+                            <td>
+                                <p>获取当前地球中心点坐标值,返回值示例：{ "y": 31.787488, "x": 117.222228, "z": 229 }。</p>
+                                <p>当地球是高德等gcj坐标时，isToWgs设置是否转换为wgs84坐标</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>getExtent</b>(<nobr><a href='../forcesium/Build/Documentation/Viewer.html'>Viewer</a></nobr> <i>viewer</i>, <nobr>Boolean</nobr> <i>isToWgs？</i>)</code></td>
+                            <td><code><nobr>Object</nobr></code></td>
+                            <td>
+                                <p>获取地球当前视域边界{xmin: 113.23422, xmax: 125.23452, ymin: 30.23436, ymax: 33.234252}。</p>
+                                <p>当地球是高德等gcj坐标时，isToWgs设置是否转换为wgs84坐标</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>getCameraView</b>(<nobr><a href='../forcesium/Build/Documentation/Viewer.html'>Viewer</a></nobr> <i>viewer</i>, <nobr>Boolean</nobr> <i>isToWgs？</i>)</code></td>
+                            <td><code><nobr>Object</nobr></code></td>
+                            <td>
+                                <p>获取当前相机视角范围参数坐标值,返回值示例：{ "y": 31.787488, "x": 117.222228, "z": 224, "heading": 56, "pitch": -29, "roll": 45 }。</p>
+                                <p>当地球是高德等gcj坐标时，isToWgs设置是否转换为wgs84坐标</p>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td><code><b>formatPositon</b>( <nobr> <a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian3'>Cartesian3</a></nobr> <i>position</i>)</code></td>
+                            <td><code><nobr>Object</nobr></code></td>
+                            <td>
+                                <p>格式化坐标点为可显示的可理解格式,返回值示例：{ "x": 117.222228,"y": 31.787488,  "z": 224 }。</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+        <section>
+            <h3 id='map-example'>使用示例 getCurrentMousePosition</h3>
+            <section>
+                <pre><code>var handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+handler.setInputAction(function (movement) {
+	//通过鼠标当前的二维屏幕坐标获取椭球笛卡尔坐标
+    var cartesian = mars3d.latlng.getCurrentMousePosition(scene, movement.position);
+    if (cartesian) {
+    	//将笛卡尔坐标转为地理坐标
+    	var cartographic = scene.globe.ellipsoid.cartesianToCartographic(cartesian);
+    	var longitudeString = Cesium.Math.toDegrees(cartographic.longitude);
+    	var latitudeString = Cesium.Math.toDegrees(cartographic.latitude);
+    	var height = Math.ceil(cartographic.height);
+    	//输出地理坐标值
+    	console.log("经度：" + longitudeString + "维度：" + latitudeString + "高度：" + height);
+    }
+}, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+</code></pre>
+            </section>
+        </section>
+
+        <h2 id='mars3d-layer'>layer图层处理类</h2>
+        <p>
+            mars3d.layer该类是静态类。创建图层和图层相关处理类。
+        </p>
+        <section>
+            <h3 id='mars3dmap-method'>方法</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法名</th>
+                            <th>返回值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><code><b>createLayer</b>(<nobr>Object</nobr> <i>item</i>, <nobr><a href='../forcesium/Build/Documentation/Viewer.html?classFilter=Viewer'>Viewer</a></nobr> <i>Viewer</i>, <nobr>String</nobr> <i>serverURL</i>, <nobr>Function</nobr> <i>layerToMap</i>)</code></td>
+                            <td><code><a href="#BaseLayer">BaseLayer</a></code></td>
+                            <td>
+                                <p>平台内部创建图层，item为配置信息，具体参考配置信息手册</p>
+                                <pre><code>var layersCfg = configdata.operationallayers; 
+for (var i = 0; i &lt; layersCfg.length; i++) {
+    var item = layersCfg[i];
+    mars3d.layer.createLayer(item, viewer, "http://localhost:8080/mapcache", function(item, viewer, layer){
+        /*图层添加回调方法*/ 
+    });
+} </code></pre>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>createImageryProvider</b>(<nobr>Object</nobr> <i>item</i>, <nobr>String</nobr> <i>serverURL</i>)</code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/ImageryProvider.html?classFilter=imageryProvider'>ImageryProvider</a></code></td>
+                            <td>
+                                <p>创建底图瓦片图层，item为配置信息，具体参考配置信息手册</p>
+                                <pre><code>var imageryProvider = mars3d.layer.createImageryProvider({ type: "www_tdt", layer: "img_z" });
+viewer.imageryLayers.addImageryProvider(imageryProvider);
+</code></pre>
+                            </td>
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+
+        <h2 id='mars3d-popup'>popup鼠标单击信息框</h2>
+        <p>
+            viewer.mars.popup该类是静态类。鼠标单击信息框处理类。
+        </p>
+        <section>
+            <h3 id='mars3dmap-method'>方法</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法名</th>
+                            <th>返回值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <!--<tr>
+                            <td><code><b>init</b>(<nobr><a href='../forcesium/Build/Documentation/Viewer.html?classFilter=Viewer'>Viewer</a></nobr> <i>Viewer</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>初始化popup弹出信息框相关界面及事件,仅限平台内部初始化使用，外部请勿重复调用</p>
+                            </td>
+                        </tr>-->
+
+                        <tr>
+                            <td><code><b>show</b>(<nobr><a href='../forcesium/Build/Documentation/Entity.html?classFilter=entity'>Entity</a></nobr> <i>entity</i>, <nobr> <a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian3'>Cartesian3</a></nobr> <i>cartesian</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>弹出popup信息框（entity需要有popup对象，其信息为绑定信息框内容的html信息）</p>
+                                <pre><code>entityentity.popup = {
+    html: 'html', //可以是任意html
+    anchor: [0, -25]
+}; 
+viewer.mars.popup.show(entity, entity.position._value);
+</code></pre>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>close(<nobr>String</nobr> <i>entityid</i>)</b></code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>关闭popup信息框，多弹窗模式，关闭指定id的弹窗，默认关闭所有</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>isOnly(<nobr>Boolean</nobr> <i>value</i>)</b></code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>是否唯一弹窗模式，默认true，传入false可以启用多弹窗。</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>getPopupForConfig(<nobr>Object</nobr> <i>config</i>，<nobr>Object</nobr> <i>attr</i>)</b></code></td>
+                            <td><code>String</code></td>
+                            <td>
+                                <p>根据配置信息构造popup通用处理方法。</p>
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+        <h2 id='mars3d-tooltip'>tooltip鼠标提示信息</h2>
+        <p>
+            viewer.mars.tooltip该类是静态类。鼠标悬浮提示信息框处理类。
+        </p>
+        <section>
+            <h3 id='mars3dmap-method'>方法</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法名</th>
+                            <th>返回值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <!--<tr>
+                            <td><code><b>init</b>(<nobr><a href='../forcesium/Build/Documentation/Viewer.html?classFilter=Viewer'>Viewer</a></nobr> <i>Viewer</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>初始化tooltip鼠标提示信息相关界面及事件,仅限平台内部初始化使用，外部请勿重复调用</p>
+                            </td>
+                        </tr>-->
+
+                        <tr>
+                            <td><code><b>show</b>(<nobr><a href='../forcesium/Build/Documentation/Entity.html?classFilter=entity'>Entity</a></nobr> <i>entity</i>, <nobr> <a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian3'>Cartesian3</a></nobr> <i>cartesian</i>)</code></td>
+                            <td></td>
+                            <td>
+                                <p>弹出tooltip信息框（entity需要有tooltip对象，其信息为绑定信息框内容的html信息）</p>
+                                <pre><code>entityentity.tooltip = {
+    html: 'html', //可以是任意html
+    anchor: [0, -25]
+}; 
+viewer.mars.popup.show(entity, entity.position._value);
+</code></pre>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>close()</b></code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>关闭tooltip信息框</p>
+                            </td>
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+
+
+
+        <h2 id='pointconvert'>pointconvert 坐标转换</h2>
+        <p>
+            mars3d.pointconvert 该类是静态类，提供百度坐标（BD09）、国测局坐标（火星坐标，GCJ02）、WGS84坐标系、Web墨卡托 等坐标之间的转换算法
+        </p>
+        <p>
+            该类的所有方法的“传入参数”和“返回结果”均是数组：[经度,纬度]
+        </p>
+        <section>
+            <h3 id='pointconvert-method'>方法</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法名</th>
+                            <th>返回值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><code><b>wgs2gcj</b>([<nobr>Number</nobr> <i>longitude</i>,<nobr>Number</nobr> <i>latitude</i>])</code></td>
+                            <td><code>[longitude,latitude]</code></td>
+                            <td>
+                                <p>加偏：标准WGS84坐标 转 国测局偏移坐标</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>gcj2wgs</b>([<nobr>Number</nobr> <i>longitude</i>,<nobr>Number</nobr> <i>latitude</i>])</code></td>
+                            <td><code>[longitude,latitude]</code></td>
+                            <td>
+                                <p>纠偏：国测局偏移坐标 转 标准WGS84坐标</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>gcj2bd</b>([<nobr>Number</nobr> <i>longitude</i>,<nobr>Number</nobr> <i>latitude</i>])</code></td>
+                            <td><code>[longitude,latitude]</code></td>
+                            <td>
+                                <p>国测局偏移坐标 转 百度经纬度坐标</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>bd2gcj</b>([<nobr>Number</nobr> <i>longitude</i>,<nobr>Number</nobr> <i>latitude</i>])</code></td>
+                            <td><code>[longitude,latitude]</code></td>
+                            <td>
+                                <p>百度经纬度坐标 转 国测局偏移坐标</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code><b>wgs2bd</b>([<nobr>Number</nobr> <i>longitude</i>,<nobr>Number</nobr> <i>latitude</i>])</code></td>
+                            <td><code>[longitude,latitude]</code></td>
+                            <td>
+                                <p>标准WGS84坐标 转 百度经纬度坐标</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code><b>bd2wgs</b>([<nobr>Number</nobr> <i>longitude</i>,<nobr>Number</nobr> <i>latitude</i>])</code></td>
+                            <td><code>[longitude,latitude]</code></td>
+                            <td>
+                                <p>百度经纬度坐标 转 标准WGS84坐标</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>jwd2mct</b>([<nobr>Number</nobr> <i>longitude</i>,<nobr>Number</nobr> <i>latitude</i>])</code></td>
+                            <td><code>[longitude,latitude]</code></td>
+                            <td>
+                                <p>经纬度坐标 转为 Web墨卡托坐标</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>mct2jwd</b>([<nobr>Number</nobr> <i>longitude</i>,<nobr>Number</nobr> <i>latitude</i>])</code></td>
+                            <td><code>[longitude,latitude]</code></td>
+                            <td>
+                                <p>Web墨卡托坐标 转为 经纬度坐标</p>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+
+        <h2 id=' mars3d-util'>util类</h2>
+
+        <p>
+            该类是一些常用通用静态方法
+        </p>
+        <section>
+            <h3 id='pointconvert-method'>方法</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法名</th>
+                            <th>返回值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        <tr>
+                            <td><code><b>webglreport</b>()</code></td>
+                            <td><code>Boolean</code></td>
+                            <td>
+                                <p>检测浏览器是否支持webgl</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>terrainPolyline</b>(<nobr>Object</nobr> <i>params</i>)</code></td>
+                            <td><code> </code></td>
+                            <td>
+                                <p>计算贴地路线</p>
+                                <pre><code class="javascript">mars3d.util.terrainPolyline({
+    viewer: viewer,
+    positions: positions,//需要计算的源路线坐标数组
+    calback: function (raisedPositions, noHeight) {
+        //raisedPositions为含高程信息的新坐标数组，noHeight为标识是否存在无地形数据。
+                      
+    }
+});
+</code></pre>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+
+
+        <h2 id='mars3d-drawingutils'>draw常用方法静态类</h2>
+        <p>
+            mars3d.draw.utils 该类是静态类。常用工具类，工具方法集合。
+        </p>
+        <section>
+            <h3 id='mars3dmap-method'>方法</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法名</th>
+                            <th>返回值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><code><b>createDragger</b>(<nobr><a href='../forcesium/Build/Documentation/Viewer.html?classFilter=Viewer'>Viewer</a></nobr> <i>Viewer</i>,<nobr>Object</nobr> <i>option</i>)</code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/BillboardGraphics.html?classFilter=billboard'>Billboard</a></code></td>
+                            <td>
+                                <p>创建拖动点（标绘功能中编辑时绑定的编辑点）</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>getCoordinates</b>([<nobr>&lt;<a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian'>Cartesian3</a>&gt;</nobr> <i>positions]</i>)</code></td>
+                            <td><code>Array</a></code></td>
+                            <td>
+                                <p>将笛卡尔坐标数组转换为经纬度值数组（返回数组：[[longitude,latitude,height],...,[longitude,latitude,height]]）</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>getPositionsWithHeight</b>(<a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian'>Cartesian3</a>|<nobr>Array&lt;<a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian'>Cartesian3</a>&gt;</nobr> <i>positions</i>,<nobr>Number</nobr> <i>height</i>)</code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian'>Cartesian3</a>|<br><nobr>Array&lt;<a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian'>Cartesian3</a>&gt;</nobr></code></td>
+                            <td>
+                                <p>给笛卡尔坐标加上高度（返回加上高度笛卡尔坐标，可以是单个笛卡尔坐标，也可以是数组类型笛卡尔坐标）</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>getZHeightPosition</b>(<nobr><a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian'>Cartesian3</a></nobr> <i>cartesian1</i>,<nobr><a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian'>Cartesian3</a></nobr> <i>cartesian2</i>)</code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian'>Cartesian3</a></code></td>
+                            <td>
+                                <p>带有高度差的两点，判断其直角点</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>getMidPosition</b>(<nobr><a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian'>Cartesian3</a></nobr> <i>cartesian1</i>,<nobr><a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian'>Cartesian3</a></nobr> <i>cartesian2</i>)</code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian'>Cartesian3</a></code></td>
+                            <td>
+                                <p>计算两点之间的中点</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>getPositionsFromJson</b>(<nobr>Json</nobr> <i>geometry</i>)</code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian'>Cartesian3</a></code></td>
+                            <td>
+                                <p>根据GeoJSON中的geometry对象，获取相应的笛卡尔坐标</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>lonLatToCartesian</b>(<nobr>Array</nobr> <i>coords</i>)</code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/Cartesian3.html?classFilter=Cartesian'>Cartesian3</a></code></td>
+                            <td>
+                                <p>根据单个经纬度坐标值数组，求出笛卡尔坐标（参数coords=[longitude,latitude,height]）</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>normalizeJsonData</b>(<nobr>Object</nobr> <i>businessData</i>)</code></td>
+                            <td><code>String|Array</code></td>
+                            <td>
+                                <p>保留方法（格式化为业务格式数据）</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>normalizeBusinessData</b>(<nobr>Json</nobr> <i>jsonData</i>)</code></td>
+                            <td><code>String </code></td>
+                            <td>
+                                <p>保留方法（格式化为geojson数据）</p>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+
+        <h2 id='draw'>Draw标绘类</h2>
+        <p>
+            mars3d.Draw是实体类，标绘控制处理类，提供文字、点、线、面、管道、立体、模型等entity对象的绘制。
+        </p>
+        <section>
+            <h3 id='draw-example'>使用示例</h3>
+
+            <section>
+
+                <pre><code class="javascript">var  drawControl = new mars3d.Draw({
+    viewer: viewer,
+    hasEdit: true,
+    dragIcon: 'img/dragIcon.png',
+    onStopDrawing: function (entity) {
+    },
+    onStartEditing: function (entity) {
+    },
+    onChangeEditing: function (entity) {
+    },
+    onStopEditing: function (entity) {
+    },
+});
+//标绘文字
+drawControl.startDraw({
+    type: "label",
+    style: {
+        text: "火星科技三维地球",
+        color: "#0081c2",
+        font_size: 50,
+        border: true,
+        border_color: "#ffffff",
+        border_width: 2
+    }
+});
+        
+</code></pre>
+
+            </section>
+
+        </section>
+        <section>
+            <h3 id='draw-factory'>创建对象</h3>
+
+            <section>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>创建示例</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id='draw-l-marker'>
+                            <td><code><b>mars3d.Draw</b>(<nobr>&lt;<a href='#draw-option'>Draw options</a>&gt;</nobr> <i>options</i>)</nobr></code></td>
+                            <td>根据相关参数创建一个标绘控制器</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </section>
+
+        </section>
+        <section>
+            <h3 id='draw-option'>Options参数选项</h3>
+            <section>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Option参数</th>
+                            <th>参数类型</th>
+                            <th>默认值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id='marker-map'>
+                            <td><code><b>viewer</b></code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/Viewer.html?classFilter=viewer'>viewer</a></code>
+                            <td><code>必须传入</code></td>
+                            <td>
+                                当前的地球对象viewer
+                            </td>
+                        </tr>
+                        <tr id='map-isCluster'>
+                            <td><code><b>dragIcon</b></code></td>
+                            <td><code>String</code>
+                            <td><code>null</code></td>
+                            <td>
+                                编辑时拖动点的图标Image URL地址
+                            </td>
+                        </tr>
+
+                        <tr id='marker-autoSize'>
+                            <td><code><b>onEvnet</b></code></td>
+                            <td><code>Boolean</code>
+                            <td><code>true</code></td>
+                            <td>是否初始化时就绑定相关交互事件，如果传入false，后续需要手动调用onEvnet方法绑定。</td>
+                        </tr>
+
+                        <tr id='marker-autoSize'>
+                            <td><code><b>hasEdit</b></code></td>
+                            <td><code>Boolean</code>
+                            <td><code>false</code></td>
+                            <td>是否可以编辑</td>
+                        </tr>
+
+
+                        <tr id='marker-click'>
+                            <td><code><b>onStartDrawing</b></code></td>
+                            <td><code>function</code>
+                            <td><code>undefined</code></td>
+                            <td>
+                                开始标绘后回调
+                                <pre><code class="javascript">onStartDrawing: function (entity) { 
+},
+</code></pre>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-click'>
+                            <td><code><b>onChangeDrawing</b></code></td>
+                            <td><code>function</code>
+                            <td><code>undefined</code></td>
+                            <td>
+                                标绘中数据有变化后回调
+                                <pre><code class="javascript">onChangeDrawing: function (entity) { 
+},
+</code></pre>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-click'>
+                            <td><code><b>onMoveDrawing</b></code></td>
+                            <td><code>function</code>
+                            <td><code>undefined</code></td>
+                            <td>
+                                标绘中移动鼠标后回调
+                                <pre><code class="javascript">onMoveDrawing: function (entity) { 
+},
+</code></pre>
+                            </td>
+                        </tr>
+                        <tr id='marker-click'>
+                            <td><code><b>onStopDrawing</b></code></td>
+                            <td><code>function</code>
+                            <td><code>undefined</code></td>
+                            <td>
+                                标绘完成后回调
+                                <pre><code class="javascript">onStopDrawing: function () { 
+},
+</code></pre>
+                            </td>
+                        </tr>
+
+
+
+                        <tr id='marker-click'>
+                            <td><code><b>onStartEditing</b></code></td>
+                            <td><code>function</code>
+                            <td><code>undefined</code></td>
+                            <td>
+                                选中开始编辑对象后回调
+                                <pre><code class="javascript">onStartEditing: function (entity) { 
+},
+</code></pre>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-click'>
+                            <td><code><b>onChangeEditing</b></code></td>
+                            <td><code>function</code>
+                            <td><code>undefined</code></td>
+                            <td>
+                                编辑对象有修改后回调
+                                <pre><code class="javascript">onChangeEditing: function (entity) { 
+},
+</code></pre>
+                            </td>
+                        </tr>
+                        <tr id='marker-click'>
+                            <td><code><b>onStopEditing</b></code></td>
+                            <td><code>function</code>
+                            <td><code>undefined</code></td>
+                            <td>
+                                停止编辑对象后回调
+                                <pre><code class="javascript">onStopEditing: function () { 
+},
+</code></pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </section>
+
+
+            <h3 id='draw-DrawStyle-option'>startDraw Options参数选项</h3>
+            <section>
+                startDraw方法内参数值attribute说明，主要设置有type和style属性。
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:70px;">名称</th>
+                            <th>参数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id='marker-name'>
+                            <td><code><b>文字</b></code></td>
+                            <td>
+                                <pre><code class="javascript">{
+    "type": "label", 
+    "style": {
+        "text": "文字",
+        "opacity": 1,
+        "color": "#0081c2",
+        "font_family": "黑体",
+        "font_size": 30,
+        "font_style": "normal",
+        "font_weight": "normal",
+        "border": true,
+        "border_color": "#ffffff",
+        "border_width": 2,
+        "background": false,
+        "background_color": "#ccc"
+    }
+}</code></pre>
+                            </td>
+                        </tr>
+                        <tr id='marker-name'>
+                            <td><code><b>点标记</b></code></td>
+                            <td>
+                                <pre><code class="javascript">{
+        "type": "point", 
+        "style": {
+            "pixelSize": 10,
+            "color": "#3388ff",
+            "outline": true,
+            "outlineColor": "#ffffff",
+            "outlineWidth": 1,
+            "opacity": 0.6
+        } 
+    }</code></pre>
+                            </td>
+
+                        </tr>
+                        <tr id='marker-name'>
+                            <td><code><b>图片点标记</b></code></td>
+                            <td>
+                                <pre><code class="javascript">{
+    "type": "billboard", 
+    "style": {
+        "image": "./img/marker/mark1.png",
+        "opacity": 1,
+        "scale": 1,
+        "rotation": 0
+    }
+}</code></pre>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-name'>
+                            <td><code><b>gltf模型</b></code></td>
+                            <td>
+                                <pre><code class="javascript">{
+    "type": "model", 
+    "style": {
+        "modelUrl": "data/models/CesiumAir/Cesium_Air.glb",
+        "scale": 1,
+        "heading": 0,
+        "pitch": 0,
+        "roll": 0,
+        "fill": false,
+        "color": "#3388ff",
+        "opacity": 1,
+        "silhouette": false,
+        "silhouetteColor": "#ffffff",
+        "silhouetteSize": 2,
+        "silhouetteAlpha": 0.8
+    }
+} </code></pre>
+                            </td>
+                        </tr>
+
+
+                        <tr id='marker-name'>
+                            <td><code><b>线</b></code></td>
+                            <td>
+                                <pre><code class="javascript">{
+    "type": "polyline", 
+    "style": {
+        "color": "#3388ff",
+        "width": 3,
+        "lineType": "solid",
+        "outline": false,
+        "outlineColor": "#ffffff",
+        "outlineWidth": "1.0",
+        "opacity": 1
+    }
+}</code></pre>
+                            </td>
+                        </tr>
+                        <tr id='marker-name'>
+                            <td><code><b>面</b></code></td>
+                            <td>
+                                <pre><code class="javascript">{
+    "type": "polygon", 
+    "position": { "height": false },
+    "style": {
+        "color": "#00FF00",
+        "outline": true,
+        "outlineColor": "#ffffff",
+        "opacity": 0.6,
+        "extrudedHeight": 40,
+        "height": 0,
+        "perPositionHeight": false
+    }
+}</code></pre>
+                            </td>
+                        </tr>
+                        <tr id='marker-name'>
+                            <td><code><b>矩形</b></code></td>
+                            <td>
+                                <pre><code class="javascript">{
+    "type": "rectangle", 
+    "position": { "height": false },
+    "style": {
+        "color": "#00FF00",
+        "outline": true,
+        "outlineColor": "#ffffff",
+        "rotation": 0,
+        "opacity": 0.6,
+        "extrudedHeight": 40,
+        "height": 0
+    }
+}</code></pre>
+                            </td>
+                        </tr>
+                        <tr id='marker-name'>
+                            <td><code><b>圆、椭圆</b></code></td>
+                            <td>
+                                <pre><code class="javascript"> {
+    "type": "ellipse", 
+    "position": { "height": false },
+    "style": {
+        "semiMinorAxis": 100,
+        "semiMajorAxis": 100,
+        "height": 0,
+        "extrudedHeight": 0,
+        "opacity": 0.6,
+        "fill": true,
+        "color": "#3388ff",
+        "outline": true,
+        "outlineColor": "#ffffff",
+        "rotation": 0
+    }
+}</code></pre>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-name'>
+                            <td><code><b>管道线</b></code></td>
+                            <td>
+                                <pre><code class="javascript"> {
+    "type": "polylineVolume", 
+    "style": {
+        "color": "#00FF00",
+        "radius": 10,
+        "shape": "circle",
+        "outline": false,
+        "outlineColor": "#ffffff",
+        "opacity": 1
+    } 
+}</code></pre>
+                            </td>
+                        </tr>
+
+
+                        <tr id='marker-name'>
+                            <td><code><b>球体</b></code></td>
+                            <td>
+                                <pre><code class="javascript">{
+    "type": "ellipsoid", 
+    "style": {
+        "extentRadii": 100,
+        "widthRadii": 100,
+        "heightRadii": 100,
+        "color": "#00FF00",
+        "outline": true,
+        "outlineColor": "#ffffff",
+        "fill": true,
+        "opacity": 0.6
+    } 
+}</code></pre>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-name'>
+                            <td><code><b>墙体</b></code></td>
+                            <td>
+                                <pre><code class="javascript">{
+    "type": "wall", 
+    "position": { "height": false },
+    "style": {
+        "color": "#00FF00",
+        "outline": true,
+        "outlineColor": "#ffffff",
+        "opacity": 0.6,
+        "maximumHeights": 40
+    } 
+}</code></pre>
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+            </section>
+
+        </section>
+        <section>
+            <h3 id='draw-method'>方法</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法名</th>
+                            <th>返回值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><code><b>startDraw</b>(<nobr><a href="#draw-DrawStyle-option"></a>DrawStyle-option</nobr> <i>option</i>)</code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/Entity.html?classFilter=entity'>Entity</a></code></td>
+                            <td>
+                                <p>激活开始绘制</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>stopDraw</b>()</code></td>
+                            <td><code>this</code></td>
+                            <td>
+                                <p>停止编辑</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>updateAttribute</b>(<nobr>Object</nobr> <i>attribute</i>)</code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/Entity.html?classFilter=entity'>Entity</a></code></td>
+                            <td>
+                                <p>修改当前正在编辑的Entity的属性</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>updateGeometry</b>(<nobr>Array</nobr> <i>positions</i>)</code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/Entity.html?classFilter=entity'>Entity</a></code></td>
+                            <td>
+                                <p>修改当前正在编辑的Entity的坐标、高程</p>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td><code><b>deleteEntity</b>(<nobr><a href='../forcesium/Build/Documentation/Entity.html?classFilter=entity'>Entity</a></nobr> <i>entity</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>删除单个entity</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code><b>deleteCurrentEntity</b>()</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>删除当前entity</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code><b>deleteAll</b>()</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>删除所有entity</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>hasDraw</b>()</code></td>
+                            <td><code>Boolean</code></td>
+                            <td>
+                                <p>是否存在有绘制的entity</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code><b>hasEdit</b>(<nobr>Boolean</nobr> <i>value</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>设置是否可以编辑修改entity</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code><b>getEntitys</b>()</code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/Entity.html?classFilter=entity'>Entity</a>[]</code></td>
+                            <td>
+                                <p>获取所有绘制的实体对象列表</p>
+                            </td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td><code><b>getCoordinates</b>(<nobr><a href='../forcesium/Build/Documentation/Entity.html?classFilter=entity'>Entity</a></nobr> <i>entity</i>)</code></td>
+                            <td><code>[]</code></td>
+                            <td>
+                                <p>获取实体的经纬度坐标数组</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>getPositions</b>(<nobr><a href='../forcesium/Build/Documentation/Entity.html?classFilter=entity'>Entity</a></nobr> <i>entity</i>)</code></td>
+                            <td><code>[]</code></td>
+                            <td>
+                                <p>获取实体的笛卡尔坐标数组</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>setPositions</b>(<nobr><a href='../forcesium/Build/Documentation/Entity.html?classFilter=entity'>Entity</a></nobr> <i>entity</i>,<nobr>Array</nobr> <i>positions</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>设置实体的坐标</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>toGeoJSON</b>()</code></td>
+                            <td><code>String</code></td>
+                            <td>
+                                <p>转换所有标绘的Entity为geojson标准的字符串</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>jsonToEntity</b>(<nobr>GeoJson Object</nobr> <i>json</i>,<nobr>Boolean</nobr> <i>isClear</i>)</code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/Entity.html?classFilter=entity'>Entity</a>[]</code></td>
+                            <td>
+                                <p>转换保存过的geojson数据为entity，并绑定相关标绘事件等</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>markersInfoToEntity</b>(<nobr>Arrary或String</nobr> <i>json</i>,<nobr>Json</nobr> <i>style</i>,<nobr>Boolean</nobr> <i>isClear</i>)</code></td>
+                            <td><code>Array</code></td>
+                            <td>
+                                <p>转换通用格式的标记数据为entity数组</p>
+                                <pre><code>var attribute = {
+    type:"billboard",
+    style: {
+        scale: 0.60,
+        image: this.path + "img/marker.png"
+    }
+};
+var json =[
+ {"name": "标记1","x": 114.030,"y": 22.646,"z": 58 },
+ {"name": "标记2","x": 114.656,"y": 22.682,"z": 60 }
+];
+drawControl.markersInfoToEntity(json,attribute,isclear); </code></pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+
+
+        <h2 id='measure'>Measure量算类</h2>
+        <p>
+            mars3d.Measure是实体类，提供测量长度、面积、高度等处理类。
+        </p>
+        <section>
+            <h3 id='measureTool-example'>使用示例</h3>
+
+            <section>
+
+                <pre><code class="javascript">this.measureSurface = new mars3d.Measure({
+    viewer: viewer,
+    terrain: false
+}); 
+measureSurface.measuerLength();//测量长度
+measureSurface.measureArea();//测量面积                                 
+measureSurface.measureHeight();//测量高度
+measureSurface.clearMeasure();//清除</code></pre>
+            </section>
+
+        </section>
+        <section>
+            <h3 id='measureTool-factory'>创建对象</h3>
+
+            <section>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>创建示例</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id='measureTool-l-marker'>
+                            <td><code><b>mars3d.Measure</b>(<nobr>&lt;<a href='#measureTool-option'>measure options</a>&gt;</nobr> <i>options</i>)</nobr></code></td>
+                            <td>根据相关参数创建一个量算控制器</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </section>
+
+        </section>
+        <section>
+            <h3 id='measureTool-option'>Options参数选项</h3>
+            <section>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Option参数</th>
+                            <th>参数类型</th>
+                            <th>默认值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id='marker-map'>
+                            <td><code><b>viewer</b></code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/Viewer.html?classFilter=viewer'>viewer</a></code>
+                            <td><code>必须传入</code></td>
+                            <td>
+                                当前的地球对象viewer
+                            </td>
+                        </tr>
+                        <tr id='map-isCluster'>
+                            <td><code><b>font</b></code></td>
+                            <td><code>String</code>
+                            <td><code>'16px SimHei'</code></td>
+                            <td>显示测量结果文本的字体</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </section>
+
+
+            <h3 id='measure-fun-option'>测量方法中 Options参数选项</h3>
+            <section>
+                measureLength、measureHeight、measureArea方法参数值，可选Options参数选项
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Option参数</th>
+                            <th>参数类型</th>
+                            <th>默认值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr id='marker-autoSize'>
+                            <td><code><b>unit</b></code></td>
+                            <td><code>String</code>
+                            <td><code>null</code></td>
+                            <td>
+                                指定显示测试结果的的计量单位，未指定时内部会自动处理显示。
+                                <br />
+                                长度高度可选值有：km（公里）、mile（海里）、m（米）、zhang（丈）、
+                                <br />
+                                面积可选值有： m（平方米）、km（平方公里）、mu（亩）、ha（公顷）
+                            </td>
+                        </tr>
+                        <tr id='marker-name'>
+                            <td><code><b>showResult</b></code></td>
+                            <td><code>function</code>
+                            <td><code>null</code></td>
+                            <td>
+                                返回测量结果的回调方法，用于在其他界面显示测量结果。
+                                <pre><code class="javascript">showResult: function (text, value) {
+   //text为带计量单位的结果，value为数值（米，平方米）
+}</code></pre>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-autoSize'>
+                            <td><code><b>measureType</b></code></td>
+                            <td><code>String</code>
+                            <td><code>null</code></td>
+                            <td>测量类型，高度测量时可传入super_height或height区分不同模式</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </section>
+
+        </section>
+
+
+
+        <section>
+            <h3 id='measure-method'>方法</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法名</th>
+                            <th>返回值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><code><b>measuerLength</b>(<nobr><a href="#measure-fun-option">MeasureFun Options</a></nobr> <i>options</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>长度测量</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code><b>measureHeight</b>(<nobr><a href="#measure-fun-option">MeasureFun Options</a></nobr> <i>options</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>高度测量</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>measureArea</b>(<nobr><a href="#measure-fun-option">MeasureFun Options</a></nobr> <i>options</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>面积测量</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>updateUnit</b>(<nobr>Number</nobr> <i>value</i>,<nobr><a href="#measure-fun-option">MeasureFun Options</a></nobr> <i>options</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>更新单位</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>clearMeasure</b>()</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>清除测量</p>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+
+
+        <h2 id='BaseLayer'>BaseLayer图层控制基类</h2>
+        <p>
+            mars3d.layer.BaseLayer是实体类，是所有图层控制处理类的基类。
+        </p>
+        <section>
+            <h3 id='mars3dmap-method'>属性</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>属性</th>
+                            <th>参数类型</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><code><b>config</b></code></td>
+                            <td><code>Object</code></td>
+                            <td>
+                                <p>config.json中图层配置信息</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code><b>viewer</b></code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/Viewer.html?classFilter=Viewer'>Viewer</a></code></td>
+                            <td>
+                                <p></p>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </section>
+            <h3 id='mars3dmap-method'>方法</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法名</th>
+                            <th>返回值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><code><b>getVisible</b>()</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>获取图层可见性</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code><b>setVisible</b>(<nobr>Boolean</nobr> <i>value</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>设置图层可见性</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code><b>centerAt(<nobr>Number</nobr> <i>duration</i>)</b></code></td>
+                            <td><code></a></code></td>
+                            <td>
+                                <p>定位至数据区域，duration参数为动画时间，默认3秒；0表示没有动画；</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>setOpacity(<nobr>Number</nobr> <i>value</i>)</b></code></td>
+                            <td><code></a></code></td>
+                            <td>
+                                <p>设置透明度</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><code><b>setZIndex(<nobr>Number</nobr> <i>value</i>)</b></code></td>
+                            <td><code></a></code></td>
+                            <td>
+                                <p>设置叠加顺序</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+
+
+        <h2 id='TileLayer'>TileLayer瓦片底图</h2>
+        <p>
+            mars3d.layer.TileLayer是实体类，瓦片图层处理类，继承自<a href="#BaseLayer"><code>mars3d.layer.BaseLayer</code></a>。
+        </p>
+        <section>
+            <h3 id='mars3dmap-method'>属性</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>属性</th>
+                            <th>参数类型</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><code><b>layer</b></code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/ImageryLayer.html?classFilter=ImageryLayer'>ImageryLayer</a></code></td>
+                            <td>
+                                <p>图层</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <div class='accordion'>
+                <label><span class='expander'>▶</span> 继承的属性，来自 <a href='#BaseLayer'>BaseLayer</a></label>
+                <div class='accordion-overflow'>
+                    <div class='accordion-content'>
+                        <section>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>属性</th>
+                                        <th>参数类型</th>
+                                        <th>说明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td><code><b>config</b></code></td>
+                                        <td><code>Object</code></td>
+                                        <td>
+                                            <p>config.json中图层配置信息</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><code><b>viewer</b></code></td>
+                                        <td><code><a href='../forcesium/Build/Documentation/Viewer.html?classFilter=Viewer'>Viewer</a></code></td>
+                                        <td>
+                                            <p></p>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h3 id='mars3dmap-method'>方法</h3>
+            <section></section>
+            <div class='accordion'>
+                <label><span class='expander'>▶</span> 继承的属性，来自 <a href='#BaseLayer'>BaseLayer</a></label>
+                <div class='accordion-overflow'>
+                    <div class='accordion-content'>
+                        <section>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>方法名</th>
+                                        <th>返回值</th>
+                                        <th>说明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td><code><b>getVisible</b>()</code></td>
+                                        <td><code></code></td>
+                                        <td>
+                                            <p>获取图层可见性</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><code><b>setVisible</b>(<nobr>Boolean</nobr> <i>value</i>)</code></td>
+                                        <td><code></code></td>
+                                        <td>
+                                            <p>设置图层可见性</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><code><b>centerAt(<nobr>Number</nobr> <i>duration</i>)</b></code></td>
+                                        <td><code></a></code></td>
+                                        <td>
+                                            <p>定位至数据区域，duration参数为动画时间，默认3秒；0表示没有动画；</p>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><code><b>setOpacity(<nobr>Number</nobr> <i>value</i>)</b></code></td>
+                                        <td><code></a></code></td>
+                                        <td>
+                                            <p>设置透明度</p>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><code><b>setZIndex(<nobr>Number</nobr> <i>value</i>)</b></code></td>
+                                        <td><code></a></code></td>
+                                        <td>
+                                            <p>设置叠加顺序</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+
+        <h2 id='Tiles3dLayer'>Tiles3dLayer三维模型</h2>
+        <p>
+            mars3d.layer.Tiles3dLayer是实体类， 3dtiles三维模型处理图层，继承自<a href="#BaseLayer"><code>mars3d.layer.BaseLayer</code></a>。
+        </p>
+
+        <section>
+            <h3 id='mars3dmap-method'>属性</h3>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>属性</th>
+                            <th>参数类型</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><code><b>model</b></code></td>
+                            <td><code><a href='../forcesium/Build/Documentation/Cesium3DTileset.html?classFilter=Cesium3DTileset'>Cesium3DTileset</a></code></td>
+                            <td>
+                                <p>图层</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code><b>originalCenter</b></code></td>
+                            <td><code>Object</code></td>
+                            <td>
+                                <p>中心位置</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <div class='accordion'>
+                <label><span class='expander'>▶</span> 继承的属性，来自 <a href='#BaseLayer'>BaseLayer</a></label>
+                <div class='accordion-overflow'>
+                    <div class='accordion-content'>
+                        <section>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>属性</th>
+                                        <th>参数类型</th>
+                                        <th>说明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td><code><b>config</b></code></td>
+                                        <td><code>Object</code></td>
+                                        <td>
+                                            <p>config.json中图层配置信息</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><code><b>viewer</b></code></td>
+                                        <td><code><a href='../forcesium/Build/Documentation/Viewer.html?classFilter=Viewer'>Viewer</a></code></td>
+                                        <td>
+                                            <p></p>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h3 id='mars3dmap-method'>方法</h3>
+            <section></section>
+            <div class='accordion'>
+                <label><span class='expander'>▶</span> 继承的属性，来自 <a href='#BaseLayer'>BaseLayer</a></label>
+                <div class='accordion-overflow'>
+                    <div class='accordion-content'>
+                        <section>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>方法名</th>
+                                        <th>返回值</th>
+                                        <th>说明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code><b>getVisible</b>()</code></td>
+                                        <td><code></code></td>
+                                        <td>
+                                            <p>获取图层可见性</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><code><b>setVisible</b>(<nobr>Boolean</nobr> <i>value</i>)</code></td>
+                                        <td><code></code></td>
+                                        <td>
+                                            <p>设置图层可见性</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><code><b>centerAt(<nobr>Number</nobr> <i>duration</i>)</b></code></td>
+                                        <td><code></a></code></td>
+                                        <td>
+                                            <p>定位至数据区域，duration参数为动画时间，默认3秒；0表示没有动画；</p>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><code><b>setOpacity(<nobr>Number</nobr> <i>value</i>)</b></code></td>
+                                        <td><code></a></code></td>
+                                        <td>
+                                            <p>设置透明度</p>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><code><b>setZIndex(<nobr>Number</nobr> <i>value</i>)</b></code></td>
+                                        <td><code></a></code></td>
+                                        <td>
+                                            <p>设置叠加顺序</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <h2 id='BaseWidget'>BaseWidget 模块基础类</h2>
+        <p>
+            mars3d.widget.BaseWidget 类是平台所有widget功能模块的基础类，开发widget时需要继承该类。 该类不是直接new实例化使用的，是新建一个类继承该类后使用。
+        </p>
+        <section>
+            <h3 id='BaseWidget-example'>使用示例</h3>
+
+            <section>
+
+                <pre><code class="javascript">var MyWidget = mars3d.widget.BaseWidget.extend({
+    map: null,//框架会自动对map赋值
+    options: {                         
+        resources: ['style.css'],
+        view: { 
+            type: "window",
+            url: "view.html",
+            windowOptions: {width: 250, height: 300}
+        },
+    },
+    //初始化[仅执行1次]
+    create: function () {
+    },
+    viewWindow:null,
+    //每个窗口创建完成后调用
+    winCreateOK: function (opt, result) {
+        this.viewWindow = result; 
+    },
+    //打开激活
+    activate: function () {        
+    },
+    //关闭释放
+    disable: function () {
+    }
+})
+</code></pre>
+
+            </section>
+
+        </section>
+
+        <section>
+            <h3 id='Widget-option'>Options参数选项</h3>
+            <section>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Option参数</th>
+                            <th>参数类型</th>
+                            <th>默认值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id='map-isCluster'>
+                            <td><code><b>resources</b></code></td>
+                            <td><code>String[]</code>
+                            <td><code>null</code></td>
+                            <td>
+                                该模块依赖的外部js、css资源文件，会在实例化之前加入的页面中。
+                                默认引用是当前widget所在目录的资源，相当于页面的资源或外部资源请以&nbsp;“/”&nbsp;或&nbsp;“.”&nbsp;或&nbsp;“http”&nbsp;开始命名
+                            </td>
+                        </tr>
+                        <tr id='marker-autoSize'>
+                            <td><code><b>view</b></code></td>
+                            <td><code>Object</code>
+                            <td><code>null</code></td>
+                            <td>
+                                定义模块的view页面配置信息，为空时表示当前模块无关联页面，
+                                其中url地址规则，参考resources说明
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </section>
+
+        </section>
+        <section>
+            <h3 id='marker-method'>方法</h3>
+
+            <section>
+                <div class='section-comments'>
+                    包括模块初始化、激活、释放时相关方法。
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法名</th>
+                            <th>返回值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr id='marker-clear'>
+                            <td><code><b>activateBase</b>()</nobr></code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>激活模块初始方法，基类内部使用</p>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-visible'>
+                            <td><code><b>disableBase</b>()</nobr></code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>释放模块初始方法，基类内部使用</p>
+                            </td>
+                        </tr>
+                        <tr id='marker-getData'>
+                            <td><code><b>init</b>()</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>模块初始化之前触发该方法，仅首次初始化执行1次 </p>
+                            </td>
+                        </tr>
+                        <tr id='marker-getData'>
+                            <td><code><b>create</b>()</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>模块初始化，仅首次初始化执行1次 </p>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-getItemById'>
+                            <td><code><b>winCreateOK</b>(<nobr>&lt;String&gt;</nobr> <i>opt</i>,<nobr>&lt;String&gt;</nobr> <i>result</i>)</nobr></code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>每个view窗口或页面创建完成后调用</p>
+                            </td>
+                        </tr>
+                        <tr id='marker-getData'>
+                            <td><code><b>activate</b>()</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>打开激活模块 </p>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-getData'>
+                            <td><code><b>disable</b>()</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>关闭释放模块 </p>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-getItemById'>
+                            <td><code><b>getHtml</b>(<nobr>&lt;String&gt;</nobr> <i>url</i>,<nobr>&lt;function&gt;</nobr> <i>callback</i>)</nobr></code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>获取指定url的html信息</p>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-getData'>
+                            <td><code><b>winFull</b>()</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>窗口最大化后触发 </p>
+                            </td>
+                        </tr>
+                        <tr id='marker-getData'>
+                            <td><code><b>winMin</b>()</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>窗口最小化后触发 </p>
+                            </td>
+                        </tr>
+                        <tr id='marker-getData'>
+                            <td><code><b>winRestore</b>()</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>窗口最大、小化后，被还原时触发 </p>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </section>
+        </section>
+
+        <h2 id='widgetmanager'>widget 模块管理类</h2>
+        <p>
+            mars3d.widget 类是静态类，是平台widget模块统一管理维护的类
+        </p>
+        <section>
+            <h3 id='widgetmanager-example'>使用示例</h3>
+
+            <section>
+
+                <pre><code class="javascript">var jsondata= {
+    "debugger": true,
+    "version": "time",
+    "defaultOptions": {
+        "windowOptions": {
+            "position": "r",
+            "maxmin": false,
+            "resize": true
+        },
+        "autoDisable": true,
+        "disableOhter": true
+    },
+    "widgetsAtStart": [
+        {
+            "name": "左上角工具栏",
+            "uri": "widgets/toolBar/widget.js",
+            "visible": true
+        }
+    ],
+    "widgets": [ 
+        {
+            "name": "图层管理",
+            "uri": "widgets/manageLayers/widget.js",
+            "windowOptions": {
+                "position": {"top": 1,"bottom": 1,"right": 1}
+            },
+            "disableOhter": false
+        },
+        {
+            "name": "图上量算",
+            "uri": "widgets/measure/widget.js"
+        }  
+    ]
+};
+mars3d.widget.init(viewer, jsondata);
+</code></pre>
+
+            </section>
+
+        </section>
+
+        <section>
+            <h3 id='widgetmanager-method'>方法</h3>
+
+            <section>
+                <div class='section-comments'>
+                    包括模块初始化，激活释放指定模块等方法
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法名</th>
+                            <th>返回值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr id='widgetmanager-clear'>
+                            <td><code><b>init</b>(<nobr>&lt;<a href='../forcesium/Build/Documentation/Viewer.html'>Viewer</a>&gt;</nobr> <i>viewer</i>,<nobr>&lt;Object&gt;</nobr> <i>jsondata</i>,<nobr>&lt;String&gt;</nobr> <i>basePath</i>)</code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>按配置信息初始化widget管理类</p>
+                                <p>如果widgets目录不在当前页面的同级目录，在其他处时可以传入basePath参数，参数值为：widgets目录相对于当前页面的路径</p>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-visible'>
+                            <td><code><b>activate</b>(<nobr>&lt;Object&gt;</nobr> <i>item</i>,<nobr>&lt;Boolean&gt;</nobr> <i>noDisableOther</i>)</nobr></code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>激活指定的模块，item可以是id或者uri或模块配置信息对象</p>
+
+
+                                <pre><code class="javascript">//常用方式，直接使用uri
+mars3d.widget.activate("widgets/bookmark/widget.js");
+//widget中配置有id时
+mars3d.widget.activate("bookmark");		
+//使用对象，可以传入更多参数，具体参数参看配置项手册，。
+mars3d.widget.activate({
+    uri: "widgets/bookmark/widget.js",
+    testdata:"widget内部使用this.config获取到这些参数",
+    success:function(thisWidget){ //激活后回调方法
+    }
+});
+                              </code></pre>
+
+                            </td>
+                        </tr>
+                        <tr id='marker-visible'>
+                            <td><code><b>disable</b>(<nobr>&lt;String&gt;</nobr> <i>id或uri</i>)</nobr></code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>释放指定id或uri的widget</p>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-visible'>
+                            <td><code><b>disableAll</b>(<nobr>&lt;String&gt;</nobr> <i>nodisableid?</i>)</nobr></code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>释放所有Widget，可以指定id或uri的widget不释放</p>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-visible'>
+                            <td><code><b>getWidget</b>(<nobr>&lt;String&gt;</nobr> <i>id或uri</i>)</nobr></code></td>
+                            <td><code>Object</code></td>
+                            <td>
+                                <p>获取指定id或uri的widget配置信息</p>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-visible'>
+                            <td><code><b>getClass</b>(<nobr>&lt;String&gt;</nobr> <i>id或uri</i>)</nobr></code></td>
+                            <td><code><a href="#BaseWidget">BaseWidget</a></code></td>
+                            <td>
+                                <p>获取指定id或uri的widget的对应的实例化BaseWidget类</p>
+                            </td>
+                        </tr>
+                        <tr id='marker-visible'>
+                            <td><code><b>bindClass</b>(<nobr>&lt;<a href="#BaseWidget">BaseWidget</a>&gt;</nobr> <i>class</i>)</nobr></code></td>
+                            <td><code>实例化后的对象</code></td>
+                            <td>
+                                <p>绑定继承BaseWidget类的类到当前对应js的widget中</p>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-visible'>
+                            <td><code><b>removeDebugeBar</b>()</nobr></code></td>
+                            <td><code></code></td>
+                            <td>
+                                <p>移除Widget测试栏</p>
+                            </td>
+                        </tr>
+
+                        <tr id='marker-visible'>
+                            <td><code><b>getDefWindowOptions</b>()</nobr></code></td>
+                            <td><code>Objcet</code></td>
+                            <td>
+                                <p>获取全局默认的view配置信息</p>
+                            </td>
+                        </tr>
+                        <tr id='marker-visible'>
+                            <td><code><b>getCacheVersion</b>()</nobr></code></td>
+                            <td><code>String</code></td>
+                            <td>
+                                <p>获取当前配置的版本信息，用于清除浏览器缓存</p>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </section>
+        </section>
+
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <!--footer-->
+    <div class="iclient-footer">
+        <div class="container">
+            <div class="iclient-copyright" id="iclient-footer">
+                版权所有 © 2018 <a href="http://www.marsgis.cn" target="_blank">合肥火星科技有限公司</a>&nbsp;&nbsp;<a href="http://www.miitbeian.gov.cn" target=" _blank">皖ICP备17025519号</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/docs.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    '
+        });
+        hljs.initHighlightingOnLoad();
+
+        var elems = document.querySelectorAll('h2, h3, h4, tr');
+
+        for (var i = 0, len = elems.length; i < len; i++) {
+            var el = elems[i];
+
+            if (el.id) {
+                var anchor = document.createElement('a');
+                anchor.setAttribute('anchor', el.id);
+                if (!el.children.length) {
+                    // For headers, insert the anchor before.
+                    el.parentNode.insertBefore(anchor, el);
+                } else {
+                    // For table rows, insert the anchor inside the first <td>
+                    el.querySelector('td').appendChild(anchor);
+
+                    // Clicking on the row (meaning "the link icon on the ::before)
+                    // jumps to the item
+                    el.parentNode.onclick = function (hash) {
+                        return function (ev) {
+                            if (ev.offsetX < 0) {
+                                window.location.hash = '#' + ev.target.parentNode.id;
+                            }
+                        };
+                    }(el.id);
+                }
+            }
+        }
+
+        elems = document.querySelectorAll('div.accordion');
+        for (var i = 0, len = elems.length; i < len; i++) {
+            var el = elems[i];
+
+            el.querySelector('label').addEventListener('click', function (c) {
+                return function () {
+                    if (c.className === 'accordion expanded') {
+                        c.className = 'accordion collapsed';
+                    } else {
+                        c.className = 'accordion expanded';
+                    }
+                };
+            }(el));
+
+            // 		el.className = 'accordion collapsed';
+            // 		el.querySelector('.accordion-content').style.display = 'none';
+        }
+    </script>
+    <style>
+        h2 {
+            margin-top: 2em;
+        }
+
+        h3 {
+            margin-top: 1em;
+            margin-bottom: .5em;
+        }
+
+        div.accordion {
+            width: 100%;
+            /* 		overflow: hidden; */
+        }
+
+        div.accordion-overflow {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        label,
+        section > h4 {
+            display: block;
+            font-weight: 500;
+            margin: 1em 0 0.25em;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+        div.accordion > div.accordion-overflow > div.accordion-content {
+            max-height: 0;
+            display: none;
+        }
+
+        div.accordion.collapsed > div.accordion-overflow > div.accordion-content {
+            animation-duration: 0.4s;
+            animation-name: collapse;
+            /* 		height: 0; */
+            max-height: 0;
+            display: block;
+            overflow: hidden;
+        }
+
+        div.accordion.expanded > div.accordion-overflow > div.accordion-content {
+            animation-duration: 0.4s;
+            animation-name: expand;
+            /* 		height: auto; */
+            max-height: none;
+            display: block;
+        }
+
+        @keyframes collapse {
+            0% {
+                max-height: 100vh;
+            }
+
+            100% {
+                max-height: 0;
+            }
+        }
+
+        @keyframes expand {
+            0% {
+                max-height: 0;
+            }
+
+            100% {
+                max-height: 100vh;
+            }
+        }
+        /*	div.accordion > div.accordion-content {
+            transition: max-height 0.4s ease-out 0s;
+        }*/
+
+        div.accordion.expanded > label > span.expander {
+            transform: rotate(90deg);
+        }
+
+        div.accordion > label > span.expander {
+            transition: transform 0.4s ease-out 0s;
+            display: inline-block;
+            font-size: 12px;
+        }
+
+        table {
+            margin-bottom: 0;
+        }
+        /* 	Markdown renders some spurious <p>s inside the table cells */
+
+        td > p {
+            margin: 0;
+        }
+        /* 	This just looks bad (with the current grey headers for sections which Vlad doesn't really like, so might have to change this) */
+
+        section.collapsable > div.section-comments > p {
+            margin: 0;
+        }
+
+        div.section-comments {
+            margin-bottom: 0.25em;
+        }
+        /*	section.collapsable div.section-comments {
+            margin: 1em;
+            font-size: 12px;
+        }*/
+
+        section.collapsable pre {
+            margin: 0;
+        }
+
+        section {
+            margin-left: 0.5em;
+        }
+
+            section h4,
+            section.collapsable h4 {
+                margin-left: -0.5em;
+            }
+    </style>
+</body>
+
+</html>

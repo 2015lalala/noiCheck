@@ -1,0 +1,819 @@
+﻿{ 
+    "serverURL": "http://data.marsgis.cn/", 
+    "map3d": {
+        "homeButton": true,
+        "sceneModePicker": true,
+        "navigationHelpButton": true,
+        "infoBox": false,
+        "vrButton": true,
+        "geocoder": true,
+        "geocoderConfig": { "citycode": "" },
+        
+        "minzoom": 1,
+        "maxzoom": 50000000,
+        "style": { "atmosphere": true, "lighting": false, "fog": false, "testTerrain": false },
+        "controls": [
+            { "type": "location", "coordinate": "wgs", "style": { "left": "0", "right": "0", "bottom": "0" } },
+            { "type": "mousezoom" },
+            { "type": "navigation", "style": { "top": "50px", "right": "-5px" } }
+        ],
+        "terrain": {
+            "url": "$serverURL$/terrain",
+            "visible": true
+        },
+        "basemaps": [
+            {
+                "id": 10,
+                "name": "地图底图",
+                "type": "group"
+            },
+            {
+                "pid": 10,
+                "name": "微软卫星",
+                "type": "wms",
+                "url": "http://192.168.6.76:19090/geowebcache/service/wms",
+                "layers": "IMG",
+                "crs": "4326",
+                "parameters": {
+                    "transparent": "true",
+                    "format": "image/jpeg"
+                },
+                "visible": false
+            },
+            {
+                "pid": 10,
+                "name": "ArcGIS卫星",
+                "type": "wms",
+                "url": "http://192.168.6.76:19090/geowebcache/service/wms",
+                "layers": "MAP",
+                "crs": "4326",
+                "parameters": {
+                    "transparent": "true",
+                    "format": "image/jpeg"
+                },
+                "visible": false
+            },
+            {
+                "pid": 10,
+                "name": "天地图卫星",
+                "icon": "assets/mars/img/basemaps/tdt_img.png",
+                "type": "group",
+                "type": "www_tdt",
+                "layer": "img_d"
+            },
+            {
+                "pid": 10,
+                "name": "离线地图",
+                "type": "xyz",
+                "icon": "assets/mars/img/basemaps/google_img.png",
+                "url": "$serverURL$/wgs3857img/{z}/{x}/{y}.jpg"
+            },
+            {
+                "pid": 10,
+                "name": "默认图片底图",
+                "type": "tms",
+                "icon": "assets/mars/img/basemaps/stamenWatercolor.png"
+            }
+        ],
+        "operationallayers": [
+            {
+                "name": "测试瓦片",
+                "type": "xyz",
+                "url": "http://localhost:8888/mapdata/exp/{z}/{x}/{y}.png",
+                "minimumLevel ": 1,
+                "maximumLevel": 13,
+                "minimumTerrainLevel": 1,
+                "maximumTerrainLevel": 13,
+                "rectangle": { "xmin": 114.85, "xmax": 119.68, "ymin": 29.34, "ymax": 34.74 }
+            },
+
+            {
+                "pid": 10,
+                "name": "天地图注记",
+                "type": "www_tdt",
+                "layer": "img_z"
+            },
+            {
+                "id": 50,
+                "name": "辅助图层",
+                "type": "group"
+            },
+            {
+                "pid": 50,
+                "name": "实时路况",
+                "type": "www_gaode",
+                "layer": "time",
+                "proxy": "/proxy/proxy.jsp?"
+            },
+            {
+                "pid": 50,
+                "type": "custom_graticule",
+                "name": "经纬网"
+            },
+
+
+            {
+                "id": 40,
+                "name": "栅格数据",
+                "type": "group"
+            },
+            {
+                "id": 4020,
+                "pid": 40,
+                "name": "OGC WMS服务",
+                "type": "group"
+            },
+            {
+                "pid": 4020,
+                "name": "教育设施点",
+                "type": "wms",
+                "url": "http://api.marsgis.cn/geoserver/mars/wms",
+                "layers": "mars:hfjy",
+                "crs": "EPSG:4326",
+                "parameters": {
+                    "transparent": "true",
+                    "format": "image/png"
+                },
+                "center": { "y": 31.743214, "x": 117.277097, "z": 47197.7, "heading": 0.3, "pitch": -78.8, "roll": 360 },
+                "popup": "名称：{项目名称}<br />类型：{设施类型}<br />面积：{用地面积}亩<br />位置：{具体位置}",
+                "visible": false,
+                "flyTo": true
+            },
+
+            {
+                "pid": 4020,
+                "name": "道路线",
+                "type": "wms",
+                "url": "http://api.marsgis.cn/geoserver/mars/wms",
+                "layers": "mars:hfdl",
+                "crs": "EPSG:4326",
+                "parameters": {
+                    "transparent": "true",
+                    "format": "image/png"
+                },
+                "center": { "y": 31.743214, "x": 117.277097, "z": 47197.7, "heading": 0.3, "pitch": -78.8, "roll": 360 },
+                "popup": "all",
+                "visible": false,
+                "flyTo": true
+            },
+            {
+                "pid": 4020,
+                "name": "建筑物面",
+                "type": "wms",
+                "url": "http://api.marsgis.cn/geoserver/mars/wms",
+                "layers": "mars:hfjzw",
+                "crs": "EPSG:4326",
+                "parameters": {
+                    "transparent": "true",
+                    "format": "image/png"
+                },
+                "center": { "y": 31.79513, "x": 117.236172, "z": 3784.6, "heading": 0.7, "pitch": -42.2, "roll": 0 },
+                "popup": "all",
+                "visible": false,
+                "flyTo": true
+            },
+            {
+                "pid": 4020,
+                "name": "规划面",
+                "type": "wms",
+                "url": "http://api.marsgis.cn/geoserver/mars/wms",
+                "layers": "mars:hfgh",
+                "crs": "EPSG:4326",
+                "parameters": {
+                    "transparent": "true",
+                    "format": "image/png"
+                },
+                "center": { "y": 31.743214, "x": 117.277097, "z": 47197.7, "heading": 0.3, "pitch": -78.8, "roll": 360 },
+                "popup": "all",
+                "visible": false,
+                "flyTo": true
+            },
+            {
+                "id": 4010,
+                "pid": 40,
+                "name": "ArcGIS Dynamic",
+                "type": "group"
+            },
+
+            {
+                "pid": 4010,
+                "type": "arcgis_dynamic",
+                "name": "道路",
+                "url": "http://arc.marsgis.cn/arcgis/rest/services/mars/hefei/MapServer",
+                "layers": "24",
+                "center": { "y": 31.814176, "x": 117.225362, "z": 5105.3, "heading": 359.2, "pitch": -83.1, "roll": 360 },
+                "popup": "all"
+            },
+            {
+                "pid": 4010,
+                "type": "arcgis_dynamic",
+                "name": "建筑物",
+                "url": "http://arc.marsgis.cn/arcgis/rest/services/mars/hefei/MapServer",
+                "layers": "35,36,37,39",
+                "center": { "y": 31.816951, "x": 117.22898, "z": 2916.7, "heading": 0.3, "pitch": -78.8, "roll": 0 },
+                "popup": "名称：{NAME}<br />层数：{floor}"
+            },
+            {
+                "pid": 4010,
+                "type": "arcgis_dynamic",
+                "name": "规划",
+                "url": "http://arc.marsgis.cn/arcgis/rest/services/mars/guihua/MapServer",
+                "center": { "y": 31.816951, "x": 117.22898, "z": 2916.7, "heading": 0.3, "pitch": -78.8, "roll": 0 },
+                "popup": "名称：{用地名称}<br />编号：{用地编号}<br />规划：{规划用地}<br />"
+            },
+
+            {
+                "id": 30,
+                "name": "矢量数据",
+                "type": "group"
+            },
+            {
+                "pid": 30,
+                "name": "高德POI",
+                "type": "www_poi",
+                "minimumLevel": 13,
+                "height": 3,
+                "filter": {
+                    "types": "120000|130000"
+                },
+                "symbol": {
+                    "styleOptions": {
+                        "image": "assets/mars/img/marker/mark1.png",
+                        "scale": 0.8,
+                        "scaleByDistance": true,
+                        "scaleByDistance_far": 20000,
+                        "scaleByDistance_farValue": 0.4,
+                        "scaleByDistance_near": 1000,
+                        "scaleByDistance_nearValue": 0.8,
+                        "label": {
+                            "font_size": 15,
+                            "color": "#ffffff",
+                            "border": true,
+                            "border_color": "#000000",
+                            "pixelOffset": [ 0, -30 ],
+                            "distanceDisplayCondition": true,
+                            "distanceDisplayCondition_far": 2000,
+                            "distanceDisplayCondition_near": 0
+                        }
+                    }
+                }
+            },
+            {
+                "id": 3030,
+                "pid": 30,
+                "name": "GeoJSON数据",
+                "type": "group"
+            },
+            {
+                "pid": 3030,
+                "type": "geojson",
+                "name": "省界线",
+                "url": "assets/mars/data/geojson/sheng-line.json",
+                "symbol": {
+                    "styleOptions": {
+                        "lineType": "solid",
+                        "color": "#ffffff",
+                        "width": 2,
+                        "opacity": 0.8
+                    }
+                },
+                "visible": false,
+                "flyTo": true
+            },
+            {
+                "pid": 3030,
+                "type": "geojson",
+                "name": "安徽各市",
+                "url": "assets/mars/data/geojson/anhui.json",
+                "symbol": {
+                    "styleOptions": {
+                        "fill": true,
+                        "opacity": 0.5,
+                        "outline": true,
+                        "outlineColor": "#FED976",
+                        "outlineWidth": 3,
+                        "outlineOpacity": 1,
+                        "perPositionHeight": false
+                    }
+                },
+                "popup": "{name}",
+                "visible": false,
+                "flyTo": true
+            },
+            {
+                "id": 3010,
+                "pid": 30,
+                "name": "ArcGIS Feature",
+                "type": "group"
+            },
+            {
+                "pid": 3010,
+                "type": "arcgis_feature",
+                "name": "兴趣点",
+                "url": "http://arc.marsgis.cn/arcgis/rest/services/mars/hefei/MapServer/1",
+                "where": " 1=1 ",
+                "minimumLevel": 15,
+                "center": { "y": 31.818396, "x": 117.229083, "z": 2554.4, "heading": 359.2, "pitch": -83.1, "roll": 360 },
+                "symbol": {
+                    "styleOptions": {
+                        "image": "assets/mars/img/marker/mark3.png",
+                        "scale": 1,
+                        "scaleByDistance": true,
+                        "scaleByDistance_far": 20000,
+                        "scaleByDistance_farValue": 0.5,
+                        "scaleByDistance_near": 1000,
+                        "scaleByDistance_nearValue": 1,
+                        "label": {
+                            "field": "NAME",
+                            "font_size": 15,
+                            "color": "#ffffff",
+                            "border": true,
+                            "border_color": "#000000",
+                            "pixelOffset": [ 0, -50 ],
+                            "distanceDisplayCondition": true,
+                            "distanceDisplayCondition_far": 2000,
+                            "distanceDisplayCondition_near": 0
+                        }
+                    },
+                    "styleField": "address",
+                    "styleFieldOptions": {
+                        "AB03": { "image": "assets/mars/img/marker/mark1.png" },
+                        "A980": { "image": "assets/mars/img/marker/mark2.png" },
+                        "A900": { "image": "assets/mars/img/marker/mark4.png" }
+                    }
+                },
+                "popup": "名称：{NAME}<br />地址：{address}"
+            },
+
+            {
+                "pid": 3010,
+                "type": "arcgis_feature",
+                "name": "道路",
+                "url": "http://arc.marsgis.cn/arcgis/rest/services/mars/hefei/MapServer/28",
+                "minimumLevel": 14,
+                "symbol": {
+                    "styleOptions": {
+                        "color": "#3388ff",
+                        "width": 3
+                    },
+                    "styleField": "NAME",
+                    "styleFieldOptions": {
+                        "祁门路": { "color": "#8744c0", "width": 3 },
+                        "东流路": { "color": "#f7ba2a", "width": 3 },
+                        "翡翠路": { "color": "#20a0ff", "width": 3 },
+                        "岳西路": { "color": "#50bfff", "width": 3 }
+                    }
+                },
+                "popup": "名称：{NAME}",
+                "center": { "y": 31.814176, "x": 117.225362, "z": 5105.3, "heading": 359.2, "pitch": -83.1, "roll": 360 }
+            },
+
+            {
+                "pid": 3010,
+                "type": "arcgis_feature",
+                "name": "建筑物面",
+                "url": "http://arc.marsgis.cn/arcgis/rest/services/mars/hefei/MapServer/37",
+                "minimumLevel": 15,
+                "symbol": {
+                    "styleOptions": {
+                        "opacity": 0.5
+                    }
+                },
+                "debuggerTileInfo": false,
+                "center": { "y": 31.816951, "x": 117.22898, "z": 1916.7, "heading": 0.3, "pitch": -78.8, "roll": 0 },
+                "popup": "名称：{NAME}<br />层数：{floor}"
+            },
+            {
+                "id": 3060,
+                "pid": 30,
+                "name": "CZML数据",
+                "type": "group"
+            },
+            {
+                "pid": 3060,
+                "type": "czml",
+                "name": "卫星轨道",
+                "url": "assets/mars/data/czml/simple.czml",
+                "center": { "y": 22.09865, "x": 98.086649, "z": 34308056.8, "heading": 347.6, "pitch": -88.3, "roll": 0 },
+                "popup": "all"
+            },
+            {
+                "id": 3050,
+                "pid": 30,
+                "name": "KML数据",
+                "type": "group"
+            },
+            {
+                "pid": 3050,
+                "type": "kml",
+                "name": "设施站点",
+                "url": "assets/mars/data/kml/facilities/facilities.kml",
+                "center": { "y": 31.66526, "x": 111.399652, "z": 8471902.9, "heading": 352.3, "pitch": -84.9, "roll": 2 },
+                "popup": "all"
+            },
+
+            {
+                "id": 20,
+                "name": "三维模型",
+                "type": "group"
+            },
+            {
+                "id": 2010,
+                "pid": 20,
+                "name": "gltf模型",
+                "type": "group"
+            },
+            {
+                "pid": 2010,
+                "type": "gltf",
+                "name": "电线塔",
+                "url": "assets/mars/data/gltf/tower/tower.glb",
+                "popup": "示例信息，这是一个电线塔",
+                "position": { "x": 117.213269, "y": 31.829509, "z": 35, "heading": 90 },
+                "center": { "y": 31.828562, "x": 117.217529, "z": 143.7, "heading": 287.2, "pitch": -10.8, "roll": 359.8 }
+            },
+            {
+                "pid": 2010,
+                "type": "gltf",
+                "name": "光伏电场",
+                "tooltip": "示例信息，这是一个光伏电场",
+                "url": "assets/mars/data/gltf/taiyang/taiyang.gltf",
+                "scale": 0.5,
+                "position": { "x": 117.219828, "y": 31.828175, "z": 36.2, "heading": -59 },
+                "center": { "y": 31.827257, "x": 117.220203, "z": 126.6, "heading": 344.2, "pitch": -35.7, "roll": 359.9 }
+            },
+            {
+                "id": 2040,
+                "pid": 20,
+                "name": "城市建筑白模",
+                "type": "group"
+            },
+            {
+                "id": 204011,
+                "pid": 2040,
+                "type": "3dtiles",
+                "name": "合肥市区",
+                "url": "$serverURL$/3dtiles/hefei/tileset.json",
+                "center": { "y": 31.789851, "x": 117.257623, "z": 6525.6, "heading": 4.9, "pitch": -48.8, "roll": 0 }
+            },
+            {
+                "id": 204012,
+                "pid": 2040,
+                "type": "3dtiles",
+                "name": "上海市区",
+                "url": "$serverURL$/3dtiles/shanghai/tileset.json",
+                "center": { "y": 31.192, "x": 121.39645, "z": 15561, "heading": 69.6, "pitch": -61.2, "roll": 0.3 }
+            },
+            {
+                "id": 2020,
+                "pid": 20,
+                "name": "3DMax模型",
+                "type": "group"
+            },
+            {
+                "id": 202010,
+                "pid": 2020,
+                "name": "高速检查站",
+                "type": "group"
+            },
+            {
+                "id": 20201011,
+                "pid": 202010,
+                "type": "3dtiles",
+                "name": "办公楼顶",
+                "url": "$serverURL$/3dtiles/lxjcz_lou/tileset.json",
+                "offset": { "z": 26 }
+            },
+            {
+                "pid": 202010,
+                "type": "3dtiles",
+                "name": "顶棚",
+                "url": "$serverURL$/3dtiles/lxjcz_dp/tileset.json",
+                "offset": { "z": 26 }
+            },
+            {
+                "pid": 202010,
+                "type": "3dtiles",
+                "name": "整体",
+                "url": "$serverURL$/3dtiles/lxjcz/tileset.json",
+                "offset": { "z": 26 },
+                "center": { "y": 39.552075, "x": 116.485823, "z": 64.2, "heading": 12.1, "pitch": -19.6, "roll": 0 }
+            },
+            {
+                "id": 202021,
+                "pid": 2020,
+                "type": "3dtiles",
+                "name": "化工厂",
+                "url": "$serverURL$/3dtiles/hgc/tileset.json",
+                "offset": { "x": 121.987713, "y": 29.888445, "z": -26 },
+                "center": { "y": 29.884096, "x": 121.988161, "z": 426.5, "heading": 358.3, "pitch": -41.9, "roll": 360 }
+            },
+
+
+            {
+                "id": 2030,
+                "pid": 20,
+                "name": "倾斜摄影",
+                "type": "group"
+            },
+            {
+                "id": 203011,
+                "pid": 2030,
+                "type": "3dtiles",
+                "name": "厂房",
+                "url": "$serverURL$/3dtiles/changfang/Tileset.json",
+                "offset": { "z": -15 },
+                "center": { "y": 40.409934, "x": 115.46201, "z": 640.7, "heading": 260.6, "pitch": -24.8, "roll": 359.8 }
+            },
+            {
+                "id": 203012,
+                "pid": 2030,
+                "type": "3dtiles",
+                "name": "扎佐工业园",
+                "url": "$serverURL$/3dtiles/zhazuo/Production_jiuchang3.json",
+                "offset": { "z": -38 },
+                "center": { "y": 26.837233, "x": 106.712475, "z": 1459.5, "heading": 39.6, "pitch": -18.7, "roll": 0.1 }
+            }
+
+        ]
+    },
+    "widget": {
+        "debugger": false,
+        "version": "time",
+        "defaultOptions": {
+            "style": "dark",
+            "windowOptions": {
+                "skin": "layer-mars-dialog2 animation-scale-up",
+                "position": "r",
+                "maxmin": false,
+                "resize": true
+            },
+            "autoDisable": true,
+            "disableOhter": true
+        },
+        "widgetsAtStart": [
+            {
+                "name": "左上角工具栏",
+                "uri": "assets/mars/widgets/toolBar/widget.js",
+                "data": [
+                    { "name": "底图设置", "custom": "basemap" },
+                    { "name": "图层管理", "icon": "fa fa-tasks", "widget": "assets/mars/widgets/manageLayers/widget.js" },
+                    {
+                        "name": "工具",
+                        "icon": "fa fa-cubes",
+                        "children": [
+                            { "name": "图上量算", "icon": "fa fa fa-calculator", "widget": "assets/mars/widgets/measure/widget.js" },
+                            { "name": "剖面分析", "icon": "fa fa-share-alt", "widget": "assets/mars/widgets/section/widget.js", "visible": false },
+
+                            { "name": "坐标定位", "icon": "fa fa-map-pin", "widget": "assets/mars/widgets/centerXY/widget.js" },
+                            { "name": "地区导航", "icon": "fa fa-paper-plane", "widget": "assets/mars/widgets/navXZQH/widget.js" },
+                            { "name": "我的标记", "icon": "fa fa-edit", "widget": "assets/mars/widgets/addmarker/widget.js" },
+                            { "name": "视角书签", "icon": "fa fa-tags", "widget": "assets/mars/widgets/bookmark/widget.js" },
+                             
+                            { "name": "卷帘对比", "icon": "fa fa-columns", "widget": "assets/mars/widgets/mapSwipe/widget.js" },
+
+                            { "name": "图上标绘", "icon": "fa fa-object-group", "widget": "assets/mars/widgets/plot/widget.js" },
+                            { "name": "飞行漫游", "icon": "fa fa-send-o", "widget": "assets/mars/widgets/roamLine/widget.js" },
+                            { "name": "粒子效果", "icon": "fa fa-free-code-camp", "widget": "assets/mars/widgets/particalSystem/widget.js" },
+                            { "name": "百度街景", "icon": "fa fa-street-view", "widget": "assets/mars/widgets/streetscape/widget.js" },
+                            { "name": "地图打印", "icon": "fa fa-print", "widget": "assets/mars/widgets/print/widget.js" },
+                            { "name": "分享地图", "icon": "fa fa-share", "widget": "assets/mars/widgets/shareUrl/widget.js" }
+                        ]
+                    },
+                    { "name": "参数设置", "custom": "setting" }
+                ]
+            }
+        ],
+        "widgets": [
+            {
+                "name": "模板",
+                "type": "group",
+                "children": [
+                    {
+                        "name": "iframe弹窗模板",
+                        "uri": "assets/mars/widgets/_example/widget.js",
+                        "windowOptions": {
+                            "width": 300,
+                            "height": 400,
+                            "position": {
+                                "bottom": 10,
+                                "right": 10
+                            },
+                            "maxmin": true,
+                            "resize": true
+                        },
+                        "openAtStart": false
+                    },
+                    {
+                        "name": "div弹窗模板",
+                        "uri": "assets/mars/widgets/_example_divwin/widget.js"
+                    },
+                    {
+                        "name": "append模板",
+                        "uri": "assets/mars/widgets/_example_append/widget.js"
+                    }
+                ]
+            },
+
+            {
+                "name": "地图工具",
+                "type": "group",
+                "children": [
+                    {
+                        "name": "图层管理",
+                        "uri": "assets/mars/widgets/manageLayers/widget.js",
+                        "windowOptions": {
+                            "position": {
+                                "top": 50,
+                                "bottom": 30,
+                                "left": 5
+                            }
+                        },
+                        "autoDisable": false,
+                        "disableOhter": false
+                    },
+                    {
+                        "name": "图上量算",
+                        "uri": "assets/mars/widgets/measure/widget.js",
+                        "windowOptions": {
+                            "position": {
+                                "bottom": 30,
+                                "right": 5
+                            }
+                        }
+                    },
+                    {
+                        "name": "剖面分析",
+                        "uri": "assets/mars/widgets/section/widget.js",
+                        "windowOptions": {
+                            "position": {
+                                "bottom": 30,
+                                "right": 5
+                            }
+                        }
+                    },
+                    {
+                        "name": "剖面分析图表",
+                        "uri": "assets/mars/widgets/sectionChars/widget.js",
+                        "windowOptions": {
+                            "noTitle": true,
+                            "position": {
+                                "top": 10,
+                                "left": 10,
+                                "right": 10
+                            }
+                        },
+                        "disableOhter": false
+                    },
+                    {
+                        "name": "视角书签",
+                        "uri": "assets/mars/widgets/bookmark/widget.js"
+                    },
+                    {
+                        "name": "坐标定位",
+                        "uri": "assets/mars/widgets/centerXY/widget.js"
+                    },
+                    {
+                        "name": "标记",
+                        "uri": "assets/mars/widgets/addmarker/widget.js"
+                    },
+                    {
+                        "name": "地区导航",
+                        "uri": "assets/mars/widgets/navXZQH/widget.js"
+                    },
+                    {
+                        "name": "漫游路线设置",
+                        "uri": "assets/mars/widgets/roamLine/widget.js",
+                        "windowOptions": {
+                            "position": {
+                                "top": 45,
+                                "bottom": 30,
+                                "right": 5
+                            }
+                        }
+                    },
+                    {
+                        "name": "漫游路线",
+                        "uri": "assets/mars/widgets/roamFly/widget.js",
+                        "windowOptions": {
+                            "position": {
+                                "bottom": 60,
+                                "right": 5
+                            }
+                        }
+                    },
+                    {
+                        "name": "路线剖面",
+                        "uri": "assets/mars/widgets/roamChars/widget.js",
+                        "windowOptions": {
+                            "noTitle": true,
+                            "position": {
+                                "top": 10,
+                                "left": 10,
+                                "right": 10
+                            }
+                        },
+                        "disableOhter": false
+                    },
+                    {
+                        "name": "双屏对比",
+                        "uri": "assets/mars/widgets/mapCompare/widget.js",
+                        "autoDisable": false,
+                        "disableOhter": false
+                    },
+                    {
+                        "name": "卷帘对比",
+                        "uri": "assets/mars/widgets/mapSwipe/widget.js",
+                        "autoDisable": false,
+                        "disableOhter": false
+                    },
+                    {
+                        "name": "粒子效果",
+                        "uri": "assets/mars/widgets/particalSystem/widget.js"
+                    },
+                    {
+                        "name": "街景",
+                        "uri": "assets/mars/widgets/streetscape/widget.js"
+                    },
+                    {
+                        "name": "标绘",
+                        "uri": "assets/mars/widgets/plot/widget.js",
+                        "windowOptions": {
+                            "position": {
+                                "top": 45,
+                                "bottom": 30,
+                                "right": 5
+                            }
+                        },
+                        "openAtStart": false
+                    },
+                    {
+                        "name": "打印",
+                        "uri": "assets/mars/widgets/print/widget.js",
+                        "autoDisable": false,
+                        "disableOhter": false
+                    },
+                    {
+                        "name": "分享当前地图位置",
+                        "uri": "assets/mars/widgets/shareUrl/widget.js",
+                        "windowOptions": {
+                            "position": {
+                                "top": 1,
+                                "left": 180,
+                                "right": 180
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "业务演示功能",
+                "type": "group",
+                "children": [
+                    {
+                        "name": "企业-地图点",
+                        "uri": "assets/mars/widgetsTS/qyPoint/widget.js",
+                        "autoDisable": false,
+                        "disableOhter": false
+                    },
+                    {
+                        "name": "企业详情",
+                        "uri": "assets/mars/widgetsTS/qyDetailsView/widget.js",
+                        "windowOptions": {
+                            "skin": "layer-mars-dialog1",
+                            "position": {
+                                "top": 50,
+                                "bottom": 50,
+                                "left": 120,
+                                "right": 120
+                            }
+                        },
+                        "disableOhter": false
+                    },
+                    {
+                        "name": "企业查询",
+                        "uri": "assets/mars/widgetsTS/qyListView/widget.js",
+                        "windowOptions": {
+                            "skin": "layer-mars-dialog1",
+                            "position": {
+                                "top": 15,
+                                "bottom": 5,
+                                "right": 5
+                            }
+                        }
+                    },
+                    {
+                        "name": "企业统计图表",
+                        "uri": "assets/mars/widgetsTS/qyCharts/widget.js"
+                    }
+                ]
+            }
+
+
+        ]
+    }
+
+
+
+
+}

@@ -1,0 +1,144 @@
+
+            
+    #cubes {
+        transform-style: preserve-3d;
+        background-color: transparent;
+        position: relative;
+        margin-left: 18px;
+        top:-35px;
+        perspective-origin: 0% 100px;
+        perspective: 1000px;
+    }
+    .wrap {
+        width: 25px;
+        height: 75px;
+        background-color: transparent;
+        position: relative;
+        transform-style: preserve-3d;
+        display: inline-block;
+        top: 0px;
+        left: 0px;
+        transform: rotateX(-20deg) rotateY(-25deg) translateZ(0px);
+    }
+    .cube {
+        width: 25px;
+        height: 75px;
+        display: block;
+        transform-style: preserve-3d;
+        perspective-origin: top 100px;
+        background-color: transparent;
+        position: absolute;
+        margin: 0px;
+        transition: all 1s linear;
+    }
+    .cube div {
+        height: 100px;
+        box-sizing: border-box;
+        position: absolute;
+        display: block;
+        opacity: .5;
+    }
+    .back {
+        transform: translateZ(25px) rotateY(180deg) ;
+        width: 25px;
+    }
+    .right {
+        width: 25px;
+        transform: rotateY(-270deg) translateX(-25px) translateZ(0);
+        transform-origin: top right;
+        background:rgba(39,203,143,0.7);
+    }
+    .left {
+        width: 25px;
+        transform: rotateY(270deg) translateX(25px);
+        transform-origin: center left;
+    }
+    .top {
+        transform: rotateX(-90deg) translateY(-50px);
+        transform-origin: top center;
+        width: 25px;
+        height: 25px !important;
+        background:rgba(39,203,143,0.9)
+    }
+    .bottom {
+        transform: rotateX(90deg) translateY(50px) translateZ(-75px);
+        transform-origin: bottom center;
+        width: 25px;
+        height:25px !important;
+    }
+    .front {
+        transform: translateZ(50px);
+        width: 25px;
+        background:rgba(39,203,143,0.4);
+    }
+    
+    .wrap:last-child .cube div {
+        
+    }
+    .back a {
+        transform: rotateZ(180deg);
+        display: inline-block;
+        position: relative;
+        margin: 0px auto;
+        color: black;
+        visibility: hidden;
+        text-decoration: none;
+    }
+    .back:hover a {
+        visibility: visible;
+    }
+    .back a:hover {
+        text-shadow: 5px 5px 5px slategrey;
+    }
+    .levelCir{
+        width:25px;
+        line-height:25px;
+        text-align: center;
+        border-radius: 50%;
+        background:#27CB8F;
+        position:absolute;
+        bottom:0px;
+        left:170px;
+        font-weight: 500
+    }
+    /* .cube:hover {
+        transform: rotateX(180deg);
+    } */
+    .fuyangliziNum{
+        width:66px;
+        height:21px;
+        margin-left:5px;
+        background:linear-gradient(0deg,rgba(13,131,214,1) 0%,rgba(68,169,190,0) 100%);
+        text-align: center;
+        cursor: pointer;
+    }
+    .fuyangCanvas{
+        width:76px;
+        height:87px;
+        position:relative;
+        background:linear-gradient(0deg,rgba(13,131,214,1) 0%,rgba(13,131,214,0) 100%);
+        border-bottom-left-radius:17px;
+        border-bottom-right-radius:17px;
+    }
+    .fuyanglizi{
+        width:76px;
+        height:87px;
+    }
+    .yuanquan{
+        width:24px;
+        height:24px;
+        border-radius: 50%;
+        background: #0BD74E;
+        overflow: hidden;
+        position: absolute;
+        left: 25px;
+        bottom: -15px;
+    }
+    .xiaoyuanquan{
+        width:14px;
+        height:14px;
+        border-radius: 50%;
+        background: #fff;
+        margin-top:5px;
+        margin-left:5px;
+    }

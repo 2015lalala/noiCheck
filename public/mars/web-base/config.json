@@ -1,0 +1,67 @@
+﻿{
+    "map3d": {
+        "basemaps": [
+            {
+                "pid": 10,
+                "name": "正射影像(全球)",
+                "type": "wms",
+                "url": "http://192.168.6.76:19090/geowebcache/service/wms",
+                "layers": "IMG",
+                "crs": "4326",
+                "parameters": {
+                    "transparent": "true",
+                    "format": "image/jpeg"
+                },
+                "visible": false
+            },
+            {
+                "pid": 10,
+                "type": "wms",
+                "name": "华润影像",
+                "url": "http://192.168.6.76:19090/geowebcache/service/wms",
+                "layers": "huarui_img_remote",
+                "parameters": {
+                    "format": "image/png"
+                },
+                "enablePickFeatures": false,
+                "visible": false
+            },
+            {
+                "type": "wms",
+                "name": "正射影像(军2m)",
+                "url": "http://192.168.6.76:9090/geowebcache/service/wms",
+                "layers": "BaseImage",
+                "parameters": {
+                    "format": "image/jpeg"
+                },
+                "enablePickFeatures": false
+            },
+            {
+                "pid": 10,
+                "name": "基础矢量地图数据(民2)",
+                "type": "wms",
+                "url": "http://192.168.6.76:19090/geowebcache/service/wms",
+                "layers": "MAP",
+                "crs": "4326",
+                "parameters": {
+                    "transparent": "true",
+                    "format": "image/jpeg"
+                },
+                "visible": false
+            },
+            {
+                "pid": 10,
+                "name": "海图",
+                "type": "wms",
+                "url": "http://192.168.6.76:19090/geowebcache/service/wms",
+                "layers": "SEAMAP",
+                "crs": "4326",
+                "parameters": {
+                    "transparent": "true",
+                    "format": "image/jpeg"
+                },
+                "visible": false
+            }
+        ]
+    }
+}

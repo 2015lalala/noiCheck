@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1, minimum-scale=1">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <!-- 首页长方体cesium样式 -->
+    <link rel="stylesheet" href="/assets/changfangti.css">
+    <title>浙江省负氧离子监控平台</title>
+
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but  doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <!--分割线-->
+    <div id="app"></div>
+    <!--分割线-->
+    <!--三维libs-->
+    <!--cesium工具类库辅助工具-->
+    <script src="/mars/web-base/lib/hao/haoutil.js"></script>
+    <!--配合cesium工具库使用-->
+    <script src="/assets/js/jquery-2.1.4.min.js"></script>
+    <!--cesium基础样式库-->
+    <link rel="stylesheet" href="/mars/web-base/lib/Cesium/Widgets/widgets.css">
+    <!--cesium基础库-->
+    <script src="/mars/web-base/lib/Cesium/Cesium.js"></script>
+    <!--cesium工具样式文件-->
+    <link rel="stylesheet" href="/mars/web-base/lib/cesium-mars/mars3d.css">
+    <!--cesium工具类库-->
+    <script src="/mars/web-base/lib/cesium-mars/mars3d-src.js"></script>
+
+    <!--turf,面积测量辅助工具（计算面积）-->
+    <script src="/mars/web-base/lib/turf/turf.min.js"></script>
+    <!--二维lib(如需要)-->
+    <script>
+      
+      // //设置html的字体大小，使用rem来控制自适应，更好的计算宽高
+      document.documentElement.style.fontSize = document.documentElement.clientWidth /1920 *100 + 'px';
+      //vue机制，只有onload时执行onresize方法，注意onload和ready.只有load之后（元素都渲染到页面中），缩放时才能改变元素大小
+      window.onload =function(){
+        document.documentElement.style.fontSize = document.documentElement.clientWidth /1920 *100 + 'px';
+        window.onresize = function(){
+          document.documentElement.style.fontSize = document.documentElement.clientWidth /1920 *100 + 'px';
+        }
+      }
+      
+    </script>
+  </body>
+</html>
